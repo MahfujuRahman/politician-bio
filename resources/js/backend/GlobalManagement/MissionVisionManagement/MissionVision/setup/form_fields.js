@@ -15,8 +15,8 @@ export default [
 				value: "mission",
 			},
 			{
-				label: "Vission",
-				value: "vission",
+				label: "Vision",
+				value: "vision",
 			},
 			{
 				label: "None",

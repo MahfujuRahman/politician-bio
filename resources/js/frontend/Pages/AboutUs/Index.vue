@@ -32,7 +32,7 @@
     />
   </div>
   <!-- AboutUs Section End Here -->
-    <div>{{whyChooseSection}}</div>
+
   <!-- Why Choose us secion Start here -->
   <div ref="whyChooseSection" data-section="whyChoose">
     <GenericSectionSkeleton

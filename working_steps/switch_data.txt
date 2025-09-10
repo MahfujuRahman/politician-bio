@@ -1,0 +1,33 @@
+<td v-else-if="row_item == 'display_status'">
+    <label class="switch">
+        <input
+        type="checkbox"
+        :checked="item.display_status == 1"
+        @change="toggleDisplayStatus(item)"
+        />
+        <span class="slider round"></span>
+    </label>
+</td>
+
+async toggleDisplayStatus(item) {
+    this.set_item(item);
+    this.update_display_status()
+    this.get_all()
+},
+
+
+--------------------- update_display_status --------------------------
+
+async function execute(){
+    let state = mapState(store,['item']);
+
+    let url = `${setup.api_host}/${setup.api_version}/${setup.api_end_point}/update-display-status`;
+
+    try {
+        let response = await axios.post(url, {slug: state.item().slug, display_status: state.item().display_status});
+
+        return response;
+    } catch (error) {
+        return error.response;
+    }
+}

@@ -1,0 +1,31 @@
+<?php
+namespace App\Modules\Management\DonationDetailsManagement\DonationDetails\Seeder;
+
+use Illuminate\Database\Seeder as SeederClass;
+use Faker\Factory as Faker;
+
+class Seeder extends SeederClass
+{
+    /**
+     * Run the database seeds.
+     php artisan db:seed --class="App\Modules\Management\DonationDetailsManagement\DonationDetails\Seeder\Seeder"
+     */
+    static $model = \App\Modules\Management\DonationDetailsManagement\DonationDetails\Models\Model::class;
+
+    public function run(): void
+    {
+        $faker = Faker::create();
+        self::$model::truncate();
+
+        for ($i = 1; $i <= 100; $i++) {
+            self::$model::create([                'author' => $faker->text(50),
+                'date' => $faker->dateTime,
+                'title' => $faker->text(100),
+                'content' => $faker->text,
+                'target' => null,
+                'achived' => null,
+                'banner_image' => null,
+            ]);
+        }
+    }
+}

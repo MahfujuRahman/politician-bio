@@ -1,0 +1,56 @@
+------------------------------------------------------
+------------------------------------------------------
+------------------------------------------------------
+{
+    name: "icon",
+    label: "Enter your icon",   
+    type: "select",         //type will be select 
+    value: "",
+    data_list: [],          //data_list: array need to add 
+},
+
+
+------------------------------------------------------
+------------------------------------------------------
+------------------------------------------------------
+
+import { iconList } from "../../../../GlobalStore/icon_list";
+
+------------------------------------------------------
+------------------------------------------------------
+------------------------------------------------------
+
+ data: () => ({
+
+    iconList,
+
+  }),
+
+------------------------------------------------------
+------------------------------------------------------
+------------------------------------------------------
+
+ created: async function () {
+
+    // Fetch all icons for the select input
+    await this.get_all_icon();
+
+  },
+
+------------------------------------------------------
+------------------------------------------------------
+------------------------------------------------------
+
+get_all_icon: async function () {
+      let icon_list = this.iconList;
+      let item_index = this.form_fields.findIndex(
+        (item) => item.name == "icon"
+      );
+      this.form_fields[item_index].data_list = [];
+      icon_list.forEach((item) => {
+        let dataList = {};
+        dataList.label = item.name;
+        dataList.value = item.value;
+        this.form_fields[item_index].data_list.push(dataList);
+      });
+    },

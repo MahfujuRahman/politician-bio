@@ -1,0 +1,8 @@
+1/ module er manage theke oi management delete kore dite hobe 
+2/ module er route theke route delete korte hobe
+3/ resource theke management ta delete kore dite hobe.
+4/ seedr need to delete
+5/ sidebar thekeo delete korte hobe
+
+////
+migration er ki korte hobe jani na .

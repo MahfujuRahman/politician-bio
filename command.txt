@@ -1,0 +1,123 @@
+/*
+|--------------------------------------------------------------------------
+| Home
+|--------------------------------------------------------------------------
+*/
+php artisan make:module BannerManagement/Banner [slogan:string-100,election_type:string-50,main_title:string-100,short_title:text,description:longtext,perma_link:string-150,image:file,background_image:file] --vue
+php artisan make:module WhyChoseUsManagement/WhyChoseUs [title:string-30,description:longtext,icon:string-50] --vue
+php artisan make:module MediaCoverageManagement/MediaCoverage [video_url:string-250,thumbnail_image:file,title:string-30,date:date,tag:string-150] --vue
+php artisan make:module ContributeManagement/Contribute [short_title:string-100,title:string-100,description:text,image:file] --vue
+php artisan make:module PublicCommentManagement/PublicComment [comment:longtext,name:string-50,commenter_image:file] --vue
+php artisan make:module NewsletterManagement/Newsletter [email:string-50]
+/*
+|--------------------------------------------------------------------------
+| AboutUs
+|--------------------------------------------------------------------------
+*/
+php artisan make:module AboutUsManagement/AboutUs [title:string-50,description:text,quotation:string-200,features:json,video_url:string-200,image:file,facts_figures:json] --vue
+php artisan make:module MissionVisionManagement/MissionVision [page_type:enum-future_plan.mission.vission.none,description:longtext] --vue
+php artisan make:module CounterManagement/Counter [title:string-50,number:integer,unit:string-10] --vue
+/*
+|--------------------------------------------------------------------------
+| Donation
+|--------------------------------------------------------------------------
+*/
+php artisan make:module DonationDetailsManagement/DonationDetails [author:string-50,date:datetime,title:string-100,content:longtext,target:Integer,achived:Integer,banner_image:file] --vue
+/*
+|--------------------------------------------------------------------------
+| History
+|--------------------------------------------------------------------------
+*/
+php artisan make:module OurJourneyManagement/OurJourney [title:string-30,year:date,short_description:text,image:file] --vue
+php artisan make:module HistoryTimelineManagement/HistoryTimeline [month_year:date,title:string-30,description:text,image:file] --vue
+/*
+|--------------------------------------------------------------------------
+| Principles
+|--------------------------------------------------------------------------
+*/
+php artisan make:module OurPrinciplesManagement/OurPrinciples [title:string-30,description:text,icon:string-30] --vue
+php artisan make:module OurSpeechesManagement/OurSpeeches [date:date,tag:string-20,title:string-50,thumbnail_image:file,video_url:string-200] --vue
+/*
+|--------------------------------------------------------------------------
+| Volunteer
+|--------------------------------------------------------------------------
+*/
+php artisan make:module VolunteerManagement/Volunteer [name:string-50,designation:string-50,social_link:json,image:file] --vue
+php artisan make:module VolunteerManagement/VolunteerApplication [first_name:string-50,last_name:string-50,email:string-50,phone_number:string-30,help_types:json,time_slots:json,week_days:json,comment:longtext] --vue
+/*
+|--------------------------------------------------------------------------
+| Galary or media
+|--------------------------------------------------------------------------
+*/
+php artisan make:module GalaryManagement/GalleryCategory [title:string-50,type:enum-image.video] --vue
+php artisan make:module GalaryManagement/Image [title:string-50,image:file,gallery_category_id:bigint{GalaryManagement/GalleryCategory}] --vue
+php artisan make:module GalaryManagement/video [title:string-50,video_url:string-200,gallery_category_id:bigint{GalaryManagement/GalleryCategory}] --vue
+/*
+|--------------------------------------------------------------------------
+| Issues
+|--------------------------------------------------------------------------
+*/
+php artisan make:module IssuesManagement/Issues [title:string-50,short_description:text,description:longtext,image:file,taking_action:json,tag:string-20] --vue
+/*
+|--------------------------------------------------------------------------
+| Volunteer
+|--------------------------------------------------------------------------
+*/
+php artisan make:module GetInvolvedManagement/GetInvolved [first_name:string-50,last_name:string-50,email:string-50,phone_number:string-20,help_types:json,preferred_times:json,preferred_days:json,comments:text] --vue
+/*
+|--------------------------------------------------------------------------
+| Services
+|--------------------------------------------------------------------------
+*/
+php artisan make:module ServicesManagement/Services [icon:string-30,title:string-100,short_title:string-100,description:longtext,image:file,statistics:json] --vue
+php artisan make:module ProjectPlaningManagement/ProjectPlaning [planning_steps:json,statistics:json,image:string-100] --vue
+/*
+|--------------------------------------------------------------------------
+| Faq
+|--------------------------------------------------------------------------
+*/
+php artisan make:module FaqManagement/Faq [question:longtext,answer:longtext] --vue
+/*
+|--------------------------------------------------------------------------
+| Event
+|--------------------------------------------------------------------------
+*/
+php artisan make:module EventManagement/Event [banner_image:string-100,date_time:datetime,place_address:string-200,title:string-100,short_description:text,description:longtext,location_link:string-250] --vue
+php artisan make:module EventManagement/Speakers [event_id:bigint{EventManagement/Event},name:string-50,designation:string-50,image:file,social_link:json] --vue
+php artisan make:module EventManagement/EventFacilities [event_id:bigint{EventManagement/Event},video_url:string-250,facility:json] --vue
+php artisan make:module EventManagement/JoinEvent [event_id:bigint{EventManagement/Event},name:string-100,email:string-100,mobile_number:string-20,comment:text] --vue
+/*
+|--------------------------------------------------------------------------
+| News
+|--------------------------------------------------------------------------
+*/
+php artisan make:module NewsManagement/NewsCategory [title:string-50] --vue
+php artisan make:module NewsManagement/News [banner_image:file,news_category_id:bigint{NewsManagement/NewsCategory},title:string-100,content:longtext,tags:string-20,date:date,author:string-80] --vue
+php artisan make:module NewsManagement/NewsComment [news_id:bigint,name:string-50,email:string-50,comment:longtext]
+
+
+/*
+|--------------------------------------------------------------------------
+| Contact
+|--------------------------------------------------------------------------
+*/
+php artisan make:module ContactUsManagement/ContactAddress [icon:string-30,name:string-100,address:string-200,phone_number:string-20,email:string-50,map_link:string-250] --vue
+php artisan make:module ContactUsManagement/ContactPeople [first_name:string-50,last_name:string-50,email:string-50,phone_number:string-20,subject:string-100,address:string-200] --vue
+
+
+/*
+|--------------------------------------------------------------------------
+| Poll
+|--------------------------------------------------------------------------
+*/
+php artisan make:module PollManagement/Poll [title:string-100,description:longtext,image:string-150,is_voting:enum-0.1] --vue
+php artisan make:module PollManagement/PollOption [poll_id:bigint,option_title:string-200] --vue
+php artisan make:module PollManagement/PollVote [poll_id:bigint,poll_option_id:bigint,session_id:bigint]
+
+
+/*
+|--------------------------------------------------------------------------
+| SectionType
+|--------------------------------------------------------------------------
+*/
+php artisan make:module SectionHeadingManagement/SectionHeading [section_type:string-50,short_title:100,title:string-200,long_title:text,short_description:text,description:longtext,video_url:string-150,primary_image:string-200,background_image:string-200,side_image:string-200,image:string-200,special_note:longtext] --vue

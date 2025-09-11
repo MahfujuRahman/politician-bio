@@ -5,14 +5,12 @@ namespace App\Modules\Management\VolunteerManagement\VolunteerPreRequisite\Model
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\SoftDeletes;
-class Model extends EloquentModel
+class VolunteerPreRequisiteApplicationModel extends EloquentModel
 {
     use SoftDeletes;
-    protected $table = "volunteer_pre_requisites";
+    protected $table = "volunteer_pre_requisite_applications";
     protected $guarded = [];
-                protected $casts = [
-                    'option' => 'array'
-                ];
+
     protected static function booted()
     {
         static::created(function ($data) {
@@ -41,10 +39,5 @@ class Model extends EloquentModel
      public function scopeTrased($q)
     {
         return $q->onlyTrashed();
-    }
-
-    public function options()
-    {
-        return $this->hasMany(VolunteerPreRequisiteOptionModel::class, 'prerequisite_id');
     }
 }

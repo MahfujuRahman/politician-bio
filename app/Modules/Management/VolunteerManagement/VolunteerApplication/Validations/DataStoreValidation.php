@@ -52,7 +52,7 @@ class DataStoreValidation extends FormRequest
             'email'        => 'required|email|max:50',
             'phone_number' => 'required|string|max:30',
             'selected_prerequisites'   => $prerequisiteRule,
-            'prerequisite'   => 'required',
+            'prerequisite'   => 'nullable',
             'comment'      => 'nullable|string',
             'status'       => ['sometimes', Rule::in(['active', 'inactive'])],
         ];

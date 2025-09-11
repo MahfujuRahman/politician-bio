@@ -34,7 +34,6 @@
                         
                         <div class="col-12 mt-3">
                             <label class="form-label font-weight-bold">Options</label>
-                            <input type="hidden" name="option" ref="optionInput">
                             <div v-for="(option, idx) in options" :key="idx" class="input-group mb-2">
                                 <input
                                     type="text"
@@ -50,6 +49,10 @@
                                         +
                                     </button>
                                 </div>
+                            </div>
+                            <!-- Hidden inputs for options -->
+                            <div v-for="(option, idx) in options.filter(o => o.trim())" :key="'hidden-' + idx">
+                                <input type="hidden" name="options[]" :value="option">
                             </div>
                         </div>
                     </div>
@@ -77,8 +80,7 @@ import setup from "../setup";
         setup,
         param_id: null,
         formData: {
-            title: "",
-            option: ""
+            title: ""
         },
         options: ["", "", "", ""],
     }),
@@ -99,8 +101,7 @@ import setup from "../setup";
         }),
         reset_fields: function () {
             this.formData = {
-                title: "",
-                option: ""
+                title: ""
             };
             this.options = ["", "", "", ""];
         },
@@ -109,23 +110,11 @@ import setup from "../setup";
             await this.details(id);
             if (this.item) {
                 this.formData.title = this.item.title || "";
-                if (this.item.option) {
-                    try {
-                        this.options = JSON.parse(this.item.option) || ["", "", "", ""];
-                    } catch (e) {
-                        this.options = ["", "", "", ""];
-                    }
-                } else {
-                    this.options = ["", "", "", ""];
-                }
+                this.options = this.item.options ? this.item.options.map(opt => opt.title) : ["", "", "", ""];
             }
         },
         submitHandler: async function ($event) {
             this.set_only_latest_data(true);
-            // Prepare option as JSON
-            this.formData.option = JSON.stringify(this.options.filter(o => o.trim() !== ""));
-            // Set the hidden input value
-            this.$refs.optionInput.value = this.formData.option;
 
             let response;
             if (this.param_id) {

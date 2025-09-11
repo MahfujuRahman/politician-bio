@@ -19,7 +19,7 @@ const setup: setup_type = {
   select_fields: [
     "id",
     "title",
-    "option",
+   
     "status",
     "slug",
     "created_at",

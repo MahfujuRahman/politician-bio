@@ -7,22 +7,26 @@
       <th class="text-center">:</th>
       <th class="text-trim">
         <template v-if="row_item === 'image'">
-          <a 
-            :href="item[row_item] || '/avatar.png'" 
-            data-fancybox="detail-gallery" 
-            :data-caption="`${row_item} - Detail View`"
-          >
-            <img
-              :src="item[row_item] || '/avatar.png'"
-              @error="handleImageError($event)"
-              style="width: 120px; height: 120px; object-fit: cover"
-              alt="image"
-            />
+          <a :href="item[row_item] || '/avatar.png'" data-fancybox="detail-gallery"
+            :data-caption="`${row_item} - Detail View`">
+            <img :src="item[row_item] || '/avatar.png'" @error="handleImageError($event)"
+              style="width: 120px; height: 120px; object-fit: cover" alt="image" />
           </a>
         </template>
         <template v-else>
           <span v-html="trim_content(item[row_item], row_item)"></span>
         </template>
+      </th>
+    </tr>
+  </template>
+  <template v-if="item.options && Array.isArray(item.options)">
+    <tr>
+      <th>Options</th>
+      <th class="text-center">:</th>
+      <th>
+        <ul>
+          <li v-for="(opt, idx) in item.options" :key="idx">{{ idx + 1 }}. {{ opt.title || opt }}</li>
+        </ul>
       </th>
     </tr>
   </template>
@@ -109,6 +113,9 @@ export default {
     },
 
     trim_content(content, row_item = null) {
+      if (row_item === 'options' && Array.isArray(content)) {
+        return content.map((opt, idx) => `${idx + 1}. ${opt.title}`).join('<br>');
+      }
       if (typeof content == "string") {
         if (row_item == "created_at" || row_item == "updated_at") {
           return new Intl.DateTimeFormat("en-US", {
@@ -124,7 +131,7 @@ export default {
           try {
             const options = JSON.parse(content);
             if (Array.isArray(options)) {
-                return options.map((opt, idx) => `${idx + 1}. ${opt}`).join('<br>');
+              return options.map((opt, idx) => `${idx + 1}. ${opt}`).join('<br>');
             }
           } catch (e) {
             // If not valid JSON, return as is

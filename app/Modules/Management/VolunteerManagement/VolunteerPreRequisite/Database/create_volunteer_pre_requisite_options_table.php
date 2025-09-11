@@ -7,14 +7,15 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     php artisan migrate --path='/app/Modules/Management/VolunteerManagement/VolunteerPreRequisite/Database/create_volunteer_pre_requisites_table.php'
+     php artisan migrate --path='/app/Modules/Management/VolunteerManagement/VolunteerPreRequisite/Database/create_volunteer_pre_requisite_options_table.php' 
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('volunteer_pre_requisites', function (Blueprint $table) {
+        Schema::create('volunteer_pre_requisite_options', function (Blueprint $table) {
             $table->id();
             $table->string('title', 100)->nullable();
+            $table->bigInteger('prerequisite_id')->nullable();
 
             $table->bigInteger('creator')->unsigned()->nullable();
             $table->string('slug', 50)->nullable();
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('volunteer_pre_requisites');
+        Schema::dropIfExists('volunteer_pre_requisite_options');
     }
 };

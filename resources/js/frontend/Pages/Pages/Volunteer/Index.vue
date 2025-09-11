@@ -141,7 +141,7 @@
                       <input
                         type="checkbox"
                         :checked="form_data.selected_prerequisites[prereq.id]?.includes(option)"
-                        @change="toggle_prerequisite_option(prereq.title, option)"
+                        @change="toggle_prerequisite_option(prereq.id, option)"
                       />
                       <span class="checkmark"></span>
                     </label>

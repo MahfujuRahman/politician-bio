@@ -45,6 +45,8 @@ php artisan make:module OurSpeechesManagement/OurSpeeches [date:date,tag:string-
 php artisan make:module VolunteerManagement/Volunteer [name:string-50,designation:string-50,social_link:json,image:file] --vue
 php artisan make:module VolunteerManagement/VolunteerApplication [first_name:string-50,last_name:string-50,email:string-50,phone_number:string-30,help_types:json,time_slots:json,week_days:json,comment:longtext] --vue
 php artisan make:module VolunteerManagement/VolunteerPreRequisite [title:string,option:json] --vue
+php artisan make:table VolunteerManagement/VolunteerPreRequisite/VolunteerPreRequisiteOption [title:string,prerequisite_id:bigint] --model
+php artisan make:table VolunteerManagement/VolunteerPreRequisite/VolunteerPreRequisiteApplication [prerequisite_id:bigint,volunteer_application_id:bigint,prerequisite_option_id] --model
 /*
 |--------------------------------------------------------------------------
 | Galary or media

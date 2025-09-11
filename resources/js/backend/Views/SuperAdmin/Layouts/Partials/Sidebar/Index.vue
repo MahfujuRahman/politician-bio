@@ -179,6 +179,10 @@
             route_name: `AllVolunteerApplication`,
             title: `VolunteerApplication`,
             icon: `zmdi zmdi-dot-circle-alt`,
+          },          {
+            route_name: `AllVolunteerPreRequisite`,
+            title: `VolunteerPreRequisite`,
+            icon: `zmdi zmdi-dot-circle-alt`,
           },
         ]"
       />

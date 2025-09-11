@@ -46,12 +46,7 @@ class DataStoreValidation extends FormRequest
             'last_name'    => 'required|string|max:50',
             'email'        => 'required|email|max:50',
             'phone_number' => 'required|string|max:30',
-            'help_types'   => 'required|array|min:1',
-            'help_types.*' => 'in:Telephone Calls,Distribute Signs,Voter Registration,Other',
-            'time_slots'   => 'required|array|min:1',
-            'time_slots.*' => 'in:Morning,Afternoon,Evening',
-            'week_days'    => 'required|array|min:1',
-            'week_days.*'  => 'in:Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday',
+            'selected_prerequisites'   => 'required|array|min:1',
             'comment'      => 'nullable|string',
             'status'       => ['sometimes', Rule::in(['active', 'inactive'])],
         ];

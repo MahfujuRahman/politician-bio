@@ -31,6 +31,42 @@
                                 :row_col_class="form_field.row_col_class" />
 
                         </template>
+
+                        <!-- Prerequisite Section -->
+                        <div class="col-12 mt-4">
+                            <h6 class="font-weight-bold">Prerequisite</h6>
+                            <input type="hidden" name="prerequisite" ref="prerequisiteInput">
+                            <div class="row">
+                                <div class="col-md-12 mb-3">
+                                    <label class="form-label font-weight-bold">Title</label>
+                                    <input 
+                                        type="text" 
+                                        class="form-control" 
+                                        v-model="prerequisite.title" 
+                                        placeholder="Enter prerequisite title"
+                                    />
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label font-weight-bold">Options</label>
+                                    <div v-for="(option, idx) in prerequisite.options" :key="idx" class="input-group mb-2">
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            v-model="prerequisite.options[idx]"
+                                            :placeholder="`Option ${idx+1}`"
+                                        />
+                                        <div class="input-group-append">
+                                            <button v-if="prerequisite.options.length > 1" type="button" class="btn btn-danger" @click="removePrerequisiteOption(idx)">
+                                                <i class="fas fa-minus"></i>
+                                            </button>
+                                            <button v-if="idx === prerequisite.options.length-1" type="button" class="btn btn-success" @click="addPrerequisiteOption">
+                                                <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="card-footer">
@@ -57,6 +93,10 @@ import form_fields from "../setup/form_fields";
         setup,
         form_fields,
         param_id: null,
+        prerequisite: {
+            title: '',
+            options: ['', '', '', '']
+        },
     }),
     created: async function () {
         let id = (this.param_id = this.$route.params.id);
@@ -77,6 +117,10 @@ import form_fields from "../setup/form_fields";
             this.form_fields.forEach((item) => {
                 item.value = "";
             });
+            this.prerequisite = {
+                title: '',
+                options: ['', '', '', '']
+            };
         },
         set_fields: async function (id) {
             this.param_id = id;
@@ -93,32 +137,46 @@ import form_fields from "../setup/form_fields";
                         }
                     });
                 });
+                // Load prerequisite
+                if (this.item.prerequisite) {
+                    try {
+                        this.prerequisite = JSON.parse(this.item.prerequisite) || { title: '', options: ['', '', '', ''] };
+                    } catch (e) {
+                        this.prerequisite = { title: '', options: ['', '', '', ''] };
+                    }
+                } else {
+                    this.prerequisite = { title: '', options: ['', '', '', ''] };
+                }
             }
         },
         submitHandler: async function ($event) {
             this.set_only_latest_data(true);
+            this.setSummerEditor();
+            // Set prerequisite as JSON
+            this.$refs.prerequisiteInput.value = JSON.stringify({
+                title: this.prerequisite.title,
+                options: this.prerequisite.options.filter(o => o.trim() !== '')
+            });
+
+            let response;
             if (this.param_id) {
-                this.setSummerEditor();
-                let response = await this.update($event);
-                // await this.get_all();
+                response = await this.update($event);
                 if ([200, 201].includes(response.status)) {
                     window.s_alert("Data successfully updated");
-                    this.$router.push({ name: `Details${this . setup . route_prefix}` });
+                    this.$router.push({ name: `Details${this.setup.route_prefix}` });
                 }
             } else {
-                this.setSummerEditor();
-                let response = await this.create($event);
-                // await this.get_all();
+                response = await this.create($event);
                 if ([200, 201].includes(response.status)) {
                     $event.target.reset();
+                    this.reset_fields();
                     // Clear summernote editors for all textarea fields
                     this.form_fields.forEach(field => {
-                        if (field.type === 'textarea' && $(`#${field . name}`).length) {
-                            $(`#${field . name}`).summernote("code", '');
+                        if (field.type === 'textarea' && $(`#${field.name}`).length) {
+                            $(`#${field.name}`).summernote("code", '');
                         }
                     });
                     window.s_alert("Data Successfully Created");
-                    // this.$router.push({ name: `All${this . setup . route_prefix}` });
                 }
             }
         },
@@ -138,6 +196,14 @@ import form_fields from "../setup/form_fields";
                     $input.val(markupStr);
                 }
             });
+        },
+        addPrerequisiteOption() {
+            this.prerequisite.options.push('');
+        },
+        removePrerequisiteOption(idx) {
+            if (this.prerequisite.options.length > 1) {
+                this.prerequisite.options.splice(idx, 1);
+            }
         },
     },
 

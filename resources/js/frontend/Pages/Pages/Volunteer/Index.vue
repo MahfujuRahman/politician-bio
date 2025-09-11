@@ -132,177 +132,16 @@
                 </div>
               </div>
 
-              <div class="form-question">
-                <h6 class="title">How would you like to help?</h6>
+              <div v-for="prereq in prerequisite" :key="prereq.id" class="form-question">
+                <h6 class="title">{{ prereq.title }}</h6>
                 <div class="check-box-wrapper">
-                  <div class="check-box">
+                  <div v-for="option in JSON.parse(prereq.option)" :key="option" class="check-box">
                     <label class="container-box">
-                      Telephone Calls
+                      {{ option }}
                       <input
                         type="checkbox"
-                        :checked="
-                          form_data.help_types.includes('Telephone Calls')
-                        "
-                        @change="toggle_help_type('Telephone Calls')"
-                      />
-                      <span class="checkmark"></span>
-                    </label>
-                  </div>
-                  <div class="check-box">
-                    <label class="container-box">
-                      Distribute Signs
-                      <input
-                        type="checkbox"
-                        :checked="
-                          form_data.help_types.includes('Distribute Signs')
-                        "
-                        @change="toggle_help_type('Distribute Signs')"
-                      />
-                      <span class="checkmark"></span>
-                    </label>
-                  </div>
-                  <div class="check-box style-01">
-                    <label class="container-box">
-                      Voter Registration
-                      <input
-                        type="checkbox"
-                        :checked="
-                          form_data.help_types.includes('Voter Registration')
-                        "
-                        @change="toggle_help_type('Voter Registration')"
-                      />
-                      <span class="checkmark"></span>
-                    </label>
-                  </div>
-                  <div class="check-box">
-                    <label class="container-box">
-                      Other
-                      <input
-                        type="checkbox"
-                        :checked="form_data.help_types.includes('Other')"
-                        @change="toggle_help_type('Other')"
-                      />
-                      <span class="checkmark"></span>
-                    </label>
-                  </div>
-                </div>
-              </div>
-
-              <div class="form-question">
-                <h6 class="title">What time slots work best for you?</h6>
-                <div class="check-box-wrapper">
-                  <div class="check-box">
-                    <label class="container-box">
-                      Morning
-                      <input
-                        type="checkbox"
-                        :checked="form_data.time_slots.includes('Morning')"
-                        @change="toggle_time_slot('Morning')"
-                      />
-                      <span class="checkmark"></span>
-                    </label>
-                  </div>
-                  <div class="check-box">
-                    <label class="container-box">
-                      Afternoon
-                      <input
-                        type="checkbox"
-                        :checked="form_data.time_slots.includes('Afternoon')"
-                        @change="toggle_time_slot('Afternoon')"
-                      />
-                      <span class="checkmark"></span>
-                    </label>
-                  </div>
-                  <div class="check-box">
-                    <label class="container-box">
-                      Evening
-                      <input
-                        type="checkbox"
-                        :checked="form_data.time_slots.includes('Evening')"
-                        @change="toggle_time_slot('Evening')"
-                      />
-                      <span class="checkmark"></span>
-                    </label>
-                  </div>
-                </div>
-              </div>
-
-              <div class="form-question">
-                <h6 class="title">Which days are you available?</h6>
-                <div class="check-box-wrapper">
-                  <div class="check-box">
-                    <label class="container-box">
-                      Sun
-                      <input
-                        type="checkbox"
-                        :checked="form_data.week_days.includes('Sunday')"
-                        @change="toggle_week_day('Sunday')"
-                      />
-                      <span class="checkmark"></span>
-                    </label>
-                  </div>
-                  <div class="check-box">
-                    <label class="container-box">
-                      Mon
-                      <input
-                        type="checkbox"
-                        :checked="form_data.week_days.includes('Monday')"
-                        @change="toggle_week_day('Monday')"
-                      />
-                      <span class="checkmark"></span>
-                    </label>
-                  </div>
-                  <div class="check-box">
-                    <label class="container-box">
-                      Tue
-                      <input
-                        type="checkbox"
-                        :checked="form_data.week_days.includes('Tuesday')"
-                        @change="toggle_week_day('Tuesday')"
-                      />
-                      <span class="checkmark"></span>
-                    </label>
-                  </div>
-                  <div class="check-box">
-                    <label class="container-box">
-                      Wed
-                      <input
-                        type="checkbox"
-                        :checked="form_data.week_days.includes('Wednesday')"
-                        @change="toggle_week_day('Wednesday')"
-                      />
-                      <span class="checkmark"></span>
-                    </label>
-                  </div>
-                  <div class="check-box">
-                    <label class="container-box">
-                      Thu
-                      <input
-                        type="checkbox"
-                        :checked="form_data.week_days.includes('Thursday')"
-                        @change="toggle_week_day('Thursday')"
-                      />
-                      <span class="checkmark"></span>
-                    </label>
-                  </div>
-                  <div class="check-box">
-                    <label class="container-box">
-                      Fri
-                      <input
-                        type="checkbox"
-                        :checked="form_data.week_days.includes('Friday')"
-                        @change="toggle_week_day('Friday')"
-                      />
-                      <span class="checkmark"></span>
-                    </label>
-                  </div>
-                  <div class="check-box">
-                    <label class="container-box">
-                      Sat
-                      <input
-                        type="checkbox"
-                        :checked="form_data.week_days.includes('Saturday')"
-                        @change="toggle_week_day('Saturday')"
+                        :checked="form_data.selected_prerequisites[prereq.id]?.includes(option)"
+                        @change="toggle_prerequisite_option(prereq.title, option)"
                       />
                       <span class="checkmark"></span>
                     </label>
@@ -368,6 +207,7 @@ export default {
       "is_submitting",
       "has_validation_errors",
       "section_headings",
+      'prerequisite'
     ]),
     volunteerGetInvolvedSection() {
       return this.get_section_headings_data("volunteer_get_involved");
@@ -381,8 +221,10 @@ export default {
       "toggle_help_type",
       "toggle_time_slot",
       "toggle_week_day",
+      "toggle_prerequisite_option",
       "clear_messages",
       "fetch_section_headings",
+      'fetch_prerequisite'
     ]),
     get_section_headings_data(section_type) {
       return this.section_headings?.find(
@@ -404,6 +246,7 @@ export default {
     this.clear_messages();
     // Fetch section headings for dynamic content
     this.fetch_section_headings();
+    this.fetch_prerequisite();
   },
 };
 </script>

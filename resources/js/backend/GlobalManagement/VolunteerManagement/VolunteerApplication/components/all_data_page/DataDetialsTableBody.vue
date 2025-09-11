@@ -7,48 +7,25 @@
       <th class="text-center">:</th>
       <th class="text-trim">
         <template v-if="row_item === 'image'">
-          <a
-            :href="item[row_item] || '/avatar.png'"
-            data-fancybox="detail-gallery"
-            :data-caption="`${row_item} - Detail View`"
-          >
-            <img
-              :src="item[row_item] || '/avatar.png'"
-              @error="handleImageError($event)"
-              style="width: 120px; height: 120px; object-fit: cover"
-              alt="image"
-            />
+          <a :href="item[row_item] || '/avatar.png'" data-fancybox="detail-gallery"
+            :data-caption="`${row_item} - Detail View`">
+            <img :src="item[row_item] || '/avatar.png'" @error="handleImageError($event)"
+              style="width: 120px; height: 120px; object-fit: cover" alt="image" />
           </a>
         </template>
         <template v-else-if="row_item === 'social_link'">
           <div class="social-links-container">
             <template v-if="item[row_item] && Array.isArray(item[row_item])">
-              <a
-                v-for="(social, socialIndex) in item[row_item]"
-                :key="socialIndex"
-                :href="social.link"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="social-link-text"
-              >
+              <a v-for="(social, socialIndex) in item[row_item]" :key="socialIndex" :href="social.link" target="_blank"
+                rel="noopener noreferrer" class="social-link-text">
                 {{ getSocialPlatformName(social.icon) }}
               </a>
             </template>
-            <template
-              v-else-if="item[row_item] && typeof item[row_item] === 'string'"
-            >
-              <template
-                v-for="(social, socialIndex) in parseSocialLinks(
-                  item[row_item]
-                )"
-                :key="socialIndex"
-              >
-                <a
-                  :href="social.link"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="social-link-text"
-                >
+            <template v-else-if="item[row_item] && typeof item[row_item] === 'string'">
+              <template v-for="(social, socialIndex) in parseSocialLinks(
+                item[row_item]
+              )" :key="socialIndex">
+                <a :href="social.link" target="_blank" rel="noopener noreferrer" class="social-link-text">
                   {{ getSocialPlatformName(social.icon) }}
                 </a>
               </template>
@@ -56,19 +33,14 @@
             <span v-else class="text-muted">No social links available</span>
           </div>
         </template>
-        <template
-          v-else-if="
-            isArrayField(row_item) &&
-            item[row_item] &&
-            Array.isArray(item[row_item])
-          "
-        >
+        <template v-else-if="
+          isArrayField(row_item) &&
+          item[row_item] &&
+          Array.isArray(item[row_item])
+        ">
           <div class="array-tags-container">
-            <span
-              v-for="(tag, tagIndex) in item[row_item]"
-              :key="tagIndex"
-              :class="['array-tag', getArrayTagClass(row_item)]"
-            >
+            <span v-for="(tag, tagIndex) in item[row_item]" :key="tagIndex"
+              :class="['array-tag', getArrayTagClass(row_item)]">
               {{ tag }}
             </span>
           </div>
@@ -86,6 +58,9 @@
             </template>
             <span v-else class="text-muted">No prerequisites</span>
           </div>
+        </template>
+        <template v-else>
+          {{ trim_content(item[row_item], row_item) }}
         </template>
       </th>
     </tr>
@@ -360,5 +335,4 @@ export default {
   border-left: 4px solid #007bff;
   font-size: 14px;
 }
-
 </style>

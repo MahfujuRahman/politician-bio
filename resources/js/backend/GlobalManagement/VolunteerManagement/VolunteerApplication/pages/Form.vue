@@ -40,7 +40,7 @@
                                 <div class="d-flex justify-content-between mb-2">
                                     <h6>Prerequisite {{ idx + 1 }}</h6>
                                     <button v-if="prerequisite.length > 1" type="button" class="btn btn-danger btn-sm" @click="removePrerequisite(idx)">
-                                        <i class="fas fa-trash"></i>
+                                       -
                                     </button>
                                 </div>
                                 <div class="row">
@@ -64,10 +64,10 @@
                                             />
                                             <div class="input-group-append">
                                                 <button v-if="prereq.options.length > 1" type="button" class="btn btn-danger" @click="removePrerequisiteOption(idx, optIdx)">
-                                                    <i class="fas fa-minus"></i>
+                                                    -
                                                 </button>
                                                 <button v-if="optIdx === prereq.options.length - 1" type="button" class="btn btn-success" @click="addPrerequisiteOption(idx)">
-                                                    <i class="fas fa-plus"></i>
+                                                    +
                                                 </button>
                                             </div>
                                         </div>

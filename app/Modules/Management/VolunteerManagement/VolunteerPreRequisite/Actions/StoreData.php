@@ -10,14 +10,15 @@ class StoreData
     {
         try {
             $requestData = $request->validated();
-            $options = $requestData['options'];
+            $optionsJson = $requestData['options'] ?? '[]';
+            $options = json_decode($optionsJson, true);
             unset($requestData['options']);
 
             if ($data = self::$model::query()->create($requestData)) {
                 // Create options
                 foreach ($options as $option) {
                     \App\Modules\Management\VolunteerManagement\VolunteerPreRequisite\Models\VolunteerPreRequisiteOptionModel::create([
-                        'title' => $option,
+                        'title' => $option['title'],
                         'prerequisite_id' => $data->id,
                         'status' => 'active'
                     ]);

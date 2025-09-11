@@ -38,7 +38,7 @@
                                 <input
                                     type="text"
                                     class="form-control"
-                                    v-model="options[idx]"
+                                    v-model="options[idx].title"
                                     :placeholder="`Option ${idx+1}`"
                                 />
                                 <div class="input-group-append">
@@ -50,10 +50,7 @@
                                     </button>
                                 </div>
                             </div>
-                            <!-- Hidden inputs for options -->
-                            <div v-for="(option, idx) in options.filter(o => o.trim())" :key="'hidden-' + idx">
-                                <input type="hidden" name="options[]" :value="option">
-                            </div>
+                            <input type="hidden" name="options" :value="JSON.stringify(options.filter(o => o.title.trim()))">
                         </div>
                     </div>
                 </div>
@@ -82,7 +79,7 @@ import setup from "../setup";
         formData: {
             title: ""
         },
-        options: ["", "", "", ""],
+        options: [{id: null, title: ""}],
     }),
     created: async function () {
         let id = (this.param_id = this.$route.params.id);
@@ -103,14 +100,14 @@ import setup from "../setup";
             this.formData = {
                 title: ""
             };
-            this.options = ["", "", "", ""];
+            this.options = [{id: null, title: ""}];
         },
         set_fields: async function (id) {
             this.param_id = id;
             await this.details(id);
             if (this.item) {
                 this.formData.title = this.item.title || "";
-                this.options = this.item.options ? this.item.options.map(opt => opt.title) : ["", "", "", ""];
+                this.options = this.item.options ? this.item.options.map(opt => ({id: opt.id, title: opt.title})) : [{id: null, title: ""}];
             }
         },
         submitHandler: async function ($event) {
@@ -133,7 +130,7 @@ import setup from "../setup";
             }
         },
         addOption() {
-            this.options.push("");
+            this.options.push({id: null, title: ""});
         },
         removeOption(idx) {
             if (this.options.length > 1) {

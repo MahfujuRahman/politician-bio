@@ -43,8 +43,7 @@ class DataStoreValidation extends FormRequest
     {
         return [
             'title' => 'required | sometimes',
-            'options' => 'required | array | min:1',
-            'options.*' => 'required | string',
+            'options' => 'required | string',
             'status' => ['sometimes', Rule::in(['active', 'inactive'])],
         ];
     }

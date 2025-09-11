@@ -5,6 +5,7 @@ namespace App\Modules\Management\VolunteerManagement\VolunteerPreRequisite\Model
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Modules\Management\VolunteerManagement\VolunteerPreRequisite\Models\VolunteerPreRequisiteApplicationModel;
 
 class VolunteerPreRequisiteOptionModel extends EloquentModel
 {
@@ -26,6 +27,12 @@ class VolunteerPreRequisiteOptionModel extends EloquentModel
             }
             $data->save();
         });
+
+        // Cascade delete on model level
+        static::deleting(function ($option) {
+            dd($option);
+            $option->applications()->ForceDelete();
+        });
     }
 
     public function scopeActive($q)
@@ -45,5 +52,11 @@ class VolunteerPreRequisiteOptionModel extends EloquentModel
     public function prerequisite()
     {
         return $this->belongsTo(Model::class, 'prerequisite_id');
+    }
+
+    // An option has many applications
+    public function applications()
+    {
+        return $this->hasMany(VolunteerPreRequisiteApplicationModel::class, 'prerequisite_option_id');
     }
 }

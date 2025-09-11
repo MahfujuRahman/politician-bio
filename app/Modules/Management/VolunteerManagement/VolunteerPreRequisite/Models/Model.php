@@ -5,6 +5,7 @@ namespace App\Modules\Management\VolunteerManagement\VolunteerPreRequisite\Model
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Modules\Management\VolunteerManagement\VolunteerPreRequisite\Models\VolunteerPreRequisiteApplicationModel;
 
 class Model extends EloquentModel
 {
@@ -28,6 +29,10 @@ class Model extends EloquentModel
             }
             $data->save();
         });
+        static::deleting(function ($prerequisite) {
+            $prerequisite->options()->forceDelete();
+            $prerequisite->applications()->forceDelete();
+        });
     }
 
     public function scopeActive($q)
@@ -47,5 +52,10 @@ class Model extends EloquentModel
     public function options()
     {
         return $this->hasMany(VolunteerPreRequisiteOptionModel::class, 'prerequisite_id');
+    }
+
+    public function applications()
+    {
+        return $this->hasMany(VolunteerPreRequisiteApplicationModel::class, 'prerequisite_id');
     }
 }

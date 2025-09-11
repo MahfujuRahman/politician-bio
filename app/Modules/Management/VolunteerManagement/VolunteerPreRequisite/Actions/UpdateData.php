@@ -2,37 +2,60 @@
 
 namespace App\Modules\Management\VolunteerManagement\VolunteerPreRequisite\Actions;
 
+use  \App\Modules\Management\VolunteerManagement\VolunteerPreRequisite\Models\VolunteerPreRequisiteOptionModel;
+use  \App\Modules\Management\VolunteerManagement\VolunteerPreRequisite\Models\VolunteerPreRequisiteApplicationModel;
+
 class UpdateData
 {
     static $model = \App\Modules\Management\VolunteerManagement\VolunteerPreRequisite\Models\Model::class;
 
-    public static function execute($request,$slug)
+    public static function execute($request, $slug)
     {
         try {
             if (!$data = self::$model::query()->where('slug', $slug)->first()) {
-                return messageResponse('Data not found...',$data, 404, 'error');
+                return messageResponse('Data not found...', $data, 404, 'error');
             }
             $requestData = $request->validated();
-            $options = $requestData['options'] ?? [];
+            $optionsJson = $requestData['options'] ?? '[]';
+            $options = json_decode($optionsJson, true);
             unset($requestData['options']);
 
             $data->update($requestData);
 
-            // Delete existing options
-            \App\Modules\Management\VolunteerManagement\VolunteerPreRequisite\Models\VolunteerPreRequisiteOptionModel::where('prerequisite_id', $data->id)->forceDelete();
+            // Get existing options
+            $existingOptions = VolunteerPreRequisiteOptionModel::where('prerequisite_id', $data->id)->get();
 
-            // Create new options
+            // Collect IDs from new options
+            $newOptionIds = [];
             foreach ($options as $option) {
-                \App\Modules\Management\VolunteerManagement\VolunteerPreRequisite\Models\VolunteerPreRequisiteOptionModel::create([
-                    'title' => $option,
-                    'prerequisite_id' => $data->id,
-                    'status' => 'active'
-                ]);
+                if (!empty($option['id'])) {
+                    // Update existing
+                    $existing = $existingOptions->find($option['id']);
+                    if ($existing) {
+                        $existing->update(['title' => $option['title'], 'status' => 'active']);
+                        $newOptionIds[] = $option['id'];
+                    }
+                } else {
+                    // Create new
+                    $newOption = \App\Modules\Management\VolunteerManagement\VolunteerPreRequisite\Models\VolunteerPreRequisiteOptionModel::create([
+                        'title' => $option['title'],
+                        'prerequisite_id' => $data->id,
+                        'status' => 'active'
+                    ]);
+                    $newOptionIds[] = $newOption->id;
+                }
             }
 
-            return messageResponse('Item updated successfully',$data, 201);
+            // Delete existing options not in new list
+            VolunteerPreRequisiteOptionModel::where('prerequisite_id', $data->id)
+                ->whereNotIn('id', $newOptionIds)->forceDelete();
+
+            VolunteerPreRequisiteApplicationModel::where('prerequisite_id', $data->id)
+                ->whereNotIn('prerequisite_option_id', $newOptionIds)->forceDelete();
+
+            return messageResponse('Item updated successfully', $data, 201);
         } catch (\Exception $e) {
-            return messageResponse($e->getMessage(),[], 500, 'server_error');
+            return messageResponse($e->getMessage(), [], 500, 'server_error');
         }
     }
 }

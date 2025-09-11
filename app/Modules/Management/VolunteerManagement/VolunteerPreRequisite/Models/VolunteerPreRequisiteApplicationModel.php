@@ -5,6 +5,9 @@ namespace App\Modules\Management\VolunteerManagement\VolunteerPreRequisite\Model
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Modules\Management\VolunteerManagement\VolunteerPreRequisite\Models\Model;
+use App\Modules\Management\VolunteerManagement\VolunteerPreRequisite\Models\VolunteerPreRequisiteOptionModel;
+
 class VolunteerPreRequisiteApplicationModel extends EloquentModel
 {
     use SoftDeletes;
@@ -32,12 +35,23 @@ class VolunteerPreRequisiteApplicationModel extends EloquentModel
         return $q->where('status', 'active');
     }
 
-     public function scopeInactive($q)
+    public function scopeInactive($q)
     {
         return $q->where('status', 'inactive');
     }
-     public function scopeTrased($q)
+    public function scopeTrased($q)
     {
         return $q->onlyTrashed();
+    }
+
+    public function prerequisite()
+    {
+        return $this->belongsTo(Model::class, 'prerequisite_id');
+    }
+
+    // Belongs to an option
+    public function option()
+    {
+        return $this->hasMany(VolunteerPreRequisiteOptionModel::class, 'id', 'prerequisite_option_id');
     }
 }

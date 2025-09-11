@@ -135,13 +135,13 @@
               <div v-for="prereq in prerequisite" :key="prereq.id" class="form-question">
                 <h6 class="title">{{ prereq.title }}</h6>
                 <div class="check-box-wrapper">
-                  <div v-for="option in JSON.parse(prereq.option)" :key="option" class="check-box">
+                  <div v-for="option in prereq.options" :key="option.id" class="check-box">
                     <label class="container-box">
-                      {{ option }}
+                      {{ option.title }}
                       <input
                         type="checkbox"
-                        :checked="form_data.selected_prerequisites[prereq.id]?.includes(option)"
-                        @change="toggle_prerequisite_option(prereq.id, option)"
+                        :checked="form_data.selected_prerequisites[prereq.id]?.includes(option.id)"
+                        @change="toggle_prerequisite_option(prereq.id, option.id)"
                       />
                       <span class="checkmark"></span>
                     </label>

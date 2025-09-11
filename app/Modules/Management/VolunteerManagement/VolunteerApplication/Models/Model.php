@@ -5,6 +5,8 @@ namespace App\Modules\Management\VolunteerManagement\VolunteerApplication\Models
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Modules\Management\VolunteerManagement\VolunteerPreRequisite\Models\VolunteerPreRequisiteApplicationModel;
+
 class Model extends EloquentModel
 {
     use SoftDeletes;
@@ -43,5 +45,10 @@ class Model extends EloquentModel
     public function scopeTrased($q)
     {
         return $q->onlyTrashed();
+    }
+
+    public function prerequisites()
+    {
+        return $this->hasMany(VolunteerPreRequisiteApplicationModel::class, 'volunteer_application_id');
     }
 }

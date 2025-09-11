@@ -41,12 +41,18 @@ class DataStoreValidation extends FormRequest
      */
     public function rules(): array
     {
+        $isUpdate = $this->route('slug') !== null;
+        $prerequisiteRule = $isUpdate
+            ? 'sometimes|array|min:1'
+            : 'required|array|min:1';
+
         return [
             'first_name'   => 'required|string|max:50',
             'last_name'    => 'required|string|max:50',
             'email'        => 'required|email|max:50',
             'phone_number' => 'required|string|max:30',
-            'selected_prerequisites'   => 'required|array|min:1',
+            'selected_prerequisites'   => $prerequisiteRule,
+            'prerequisite'   => 'required',
             'comment'      => 'nullable|string',
             'status'       => ['sometimes', Rule::in(['active', 'inactive'])],
         ];

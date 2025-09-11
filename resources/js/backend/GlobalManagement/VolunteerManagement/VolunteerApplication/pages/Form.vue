@@ -34,38 +34,49 @@
 
                         <!-- Prerequisite Section -->
                         <div class="col-12 mt-4">
-                            <h6 class="font-weight-bold">Prerequisite</h6>
+                            <h6 class="font-weight-bold">Prerequisites</h6>
                             <input type="hidden" name="prerequisite" ref="prerequisiteInput">
-                            <div class="row">
-                                <div class="col-md-12 mb-3">
-                                    <label class="form-label font-weight-bold">Title</label>
-                                    <input 
-                                        type="text" 
-                                        class="form-control" 
-                                        v-model="prerequisite.title" 
-                                        placeholder="Enter prerequisite title"
-                                    />
+                            <div v-for="(prereq, idx) in prerequisite" :key="idx" class="border p-3 mb-3">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <h6>Prerequisite {{ idx + 1 }}</h6>
+                                    <button v-if="prerequisite.length > 1" type="button" class="btn btn-danger btn-sm" @click="removePrerequisite(idx)">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
                                 </div>
-                                <div class="col-12">
-                                    <label class="form-label font-weight-bold">Options</label>
-                                    <div v-for="(option, idx) in prerequisite.options" :key="idx" class="input-group mb-2">
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            v-model="prerequisite.options[idx]"
-                                            :placeholder="`Option ${idx+1}`"
+                                <div class="row">
+                                    <div class="col-md-12 mb-3">
+                                        <label class="form-label font-weight-bold">Title</label>
+                                        <input 
+                                            type="text" 
+                                            class="form-control" 
+                                            v-model="prereq.title" 
+                                            :placeholder="`Enter prerequisite title ${idx + 1}`"
                                         />
-                                        <div class="input-group-append">
-                                            <button v-if="prerequisite.options.length > 1" type="button" class="btn btn-danger" @click="removePrerequisiteOption(idx)">
-                                                <i class="fas fa-minus"></i>
-                                            </button>
-                                            <button v-if="idx === prerequisite.options.length-1" type="button" class="btn btn-success" @click="addPrerequisiteOption">
-                                                <i class="fas fa-plus"></i>
-                                            </button>
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label font-weight-bold">Options</label>
+                                        <div v-for="(option, optIdx) in prereq.options" :key="optIdx" class="input-group mb-2">
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                v-model="prereq.options[optIdx]"
+                                                :placeholder="`Option ${optIdx + 1}`"
+                                            />
+                                            <div class="input-group-append">
+                                                <button v-if="prereq.options.length > 1" type="button" class="btn btn-danger" @click="removePrerequisiteOption(idx, optIdx)">
+                                                    <i class="fas fa-minus"></i>
+                                                </button>
+                                                <button v-if="optIdx === prereq.options.length - 1" type="button" class="btn btn-success" @click="addPrerequisiteOption(idx)">
+                                                    <i class="fas fa-plus"></i>
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <button type="button" class="btn btn-primary" @click="addPrerequisite">
+                                <i class="fas fa-plus"></i> Add Prerequisite
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -93,10 +104,9 @@ import form_fields from "../setup/form_fields";
         setup,
         form_fields,
         param_id: null,
-        prerequisite: {
-            title: '',
-            options: ['', '', '', '']
-        },
+        prerequisite: [
+            { id: null, title: '', options: ['', '', '', ''] }
+        ],
     }),
     created: async function () {
         let id = (this.param_id = this.$route.params.id);
@@ -117,10 +127,9 @@ import form_fields from "../setup/form_fields";
             this.form_fields.forEach((item) => {
                 item.value = "";
             });
-            this.prerequisite = {
-                title: '',
-                options: ['', '', '', '']
-            };
+            this.prerequisite = [
+                { id: null, title: '', options: ['', '', '', ''] }
+            ];
         },
         set_fields: async function (id) {
             this.param_id = id;
@@ -140,12 +149,12 @@ import form_fields from "../setup/form_fields";
                 // Load prerequisite
                 if (this.item.prerequisite) {
                     try {
-                        this.prerequisite = JSON.parse(this.item.prerequisite) || { title: '', options: ['', '', '', ''] };
+                        this.prerequisite = JSON.parse(this.item.prerequisite) || [{ id: null, title: '', options: ['', '', '', ''] }];
                     } catch (e) {
-                        this.prerequisite = { title: '', options: ['', '', '', ''] };
+                        this.prerequisite = [{ id: null, title: '', options: ['', '', '', ''] }];
                     }
                 } else {
-                    this.prerequisite = { title: '', options: ['', '', '', ''] };
+                    this.prerequisite = [{ id: null, title: '', options: ['', '', '', ''] }];
                 }
             }
         },
@@ -153,10 +162,13 @@ import form_fields from "../setup/form_fields";
             this.set_only_latest_data(true);
             this.setSummerEditor();
             // Set prerequisite as JSON
-            this.$refs.prerequisiteInput.value = JSON.stringify({
-                title: this.prerequisite.title,
-                options: this.prerequisite.options.filter(o => o.trim() !== '')
-            });
+            this.$refs.prerequisiteInput.value = JSON.stringify(
+                this.prerequisite.map(p => ({
+                    id: p.id,
+                    title: p.title,
+                    options: p.options.filter(o => o.trim() !== '')
+                }))
+            );
 
             let response;
             if (this.param_id) {
@@ -197,12 +209,20 @@ import form_fields from "../setup/form_fields";
                 }
             });
         },
-        addPrerequisiteOption() {
-            this.prerequisite.options.push('');
+        addPrerequisiteOption(idx) {
+            this.prerequisite[idx].options.push('');
         },
-        removePrerequisiteOption(idx) {
-            if (this.prerequisite.options.length > 1) {
-                this.prerequisite.options.splice(idx, 1);
+        removePrerequisiteOption(idx, optIdx) {
+            if (this.prerequisite[idx].options.length > 1) {
+                this.prerequisite[idx].options.splice(optIdx, 1);
+            }
+        },
+        addPrerequisite() {
+            this.prerequisite.push({ id: null, title: '', options: ['', '', '', ''] });
+        },
+        removePrerequisite(idx) {
+            if (this.prerequisite.length > 1) {
+                this.prerequisite.splice(idx, 1);
             }
         },
     },

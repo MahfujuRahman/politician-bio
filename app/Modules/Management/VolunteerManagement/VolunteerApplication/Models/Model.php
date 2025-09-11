@@ -31,6 +31,10 @@ class Model extends EloquentModel
             }
             $data->save();
         });
+
+        static::deleting(function ($prerequisite) {
+            $prerequisite->prerequisites()->forceDelete();
+        });
     }
 
     public function scopeActive($q)

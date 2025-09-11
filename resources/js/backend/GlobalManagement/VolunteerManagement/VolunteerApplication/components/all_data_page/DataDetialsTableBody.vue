@@ -73,8 +73,19 @@
             </span>
           </div>
         </template>
-        <template v-else>
-          {{ trim_content(item[row_item], row_item) }}
+        <template v-else-if="row_item === 'prerequisite'">
+          <div class="prerequisite-container">
+            <template v-if="item[row_item]">
+              <div v-for="(prereq, idx) in parsePrerequisite(item[row_item])" :key="idx" class="prerequisite-item">
+                <strong>{{ idx + 1 }}. {{ prereq.title }}</strong><br>
+                <span>options: </span>
+                <div v-for="(option, optIdx) in prereq.options" :key="optIdx" class="option-item ml-4">
+                  {{ optIdx + 1 }}. {{ option }}
+                </div>
+              </div>
+            </template>
+            <span v-else class="text-muted">No prerequisites</span>
+          </div>
         </template>
       </th>
     </tr>
@@ -205,16 +216,16 @@ export default {
       }
     },
 
-    getSocialPlatformName(iconClass) {
-      if (iconClass.includes("facebook")) return "Facebook";
-      if (iconClass.includes("twitter")) return "Twitter";
-      if (iconClass.includes("linkedin")) return "LinkedIn";
-      if (iconClass.includes("youtube")) return "YouTube";
-      if (iconClass.includes("instagram")) return "Instagram";
-      if (iconClass.includes("github")) return "GitHub";
-      if (iconClass.includes("whatsapp")) return "WhatsApp";
-      if (iconClass.includes("telegram")) return "Telegram";
-      return "Social Link";
+    parsePrerequisite(prereqData) {
+      try {
+        if (typeof prereqData === "string") {
+          return JSON.parse(prereqData);
+        }
+        return prereqData;
+      } catch (error) {
+        console.error("Failed to parse prerequisite:", error);
+        return [];
+      }
     },
 
     trim_content(content, row_item = null) {
@@ -335,4 +346,19 @@ export default {
   color: #6c757d;
   font-style: italic;
 }
+
+/* Prerequisite Styling */
+.prerequisite-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.prerequisite-item {
+  padding: 8px;
+  border-radius: 5px;
+  border-left: 4px solid #007bff;
+  font-size: 14px;
+}
+
 </style>

@@ -125,7 +125,7 @@ export default {
 
 .image-section {
   float: left;
-  width: 50%;
+  width: 28%;
   margin-right: 20px;
 }
 
@@ -133,6 +133,16 @@ export default {
   content: "";
   display: block;
   clear: both;
+}
+
+.administration-single-items .administrative-bg {
+    background-size: contain;
+    background-position: top center;
+    min-height: 500px;
+}
+
+.administration-single-items.style-01 {
+     margin-left: 0px; 
 }
 
 @media (max-width: 991px) {

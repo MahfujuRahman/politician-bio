@@ -27,7 +27,7 @@
         <h4 class="title">
           <Link :href="`/events/event/details?slug=${event.slug}`">{{ event.title }}</Link>
         </h4>
-        <p class="description">{{ event.description }}</p>
+        <p class="description" v-html="event.description"></p>
       </div>
     </div>
   </div>

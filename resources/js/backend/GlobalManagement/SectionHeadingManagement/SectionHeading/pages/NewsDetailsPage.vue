@@ -13,6 +13,18 @@
               <ul
                 class="flex-column nav nav-tabs nav-tabs-primary top-icon nav-justified card"
               >
+               <li class="nav-item" @click="tab = 'news_details_banner'">
+                  <a
+                    :class="tab == 'news_details_banner' ? ' active' : ''"
+                    href="javascript:void();"
+                    data-target="#news_details_banner"
+                    data-toggle="pill"
+                    class="nav-link"
+                    ><i class="icon-note"></i>
+                    <span class="hidden-xs">Banner</span></a
+                  >
+                  <hr />
+                </li>
                 <li class="nav-item" @click="tab = 'news_details_news_comment'">
                   <a
                     :class="tab == 'news_details_news_comment' ? ' active' : ''"
@@ -27,6 +39,79 @@
                 </li>
               </ul>
               <div class="ml-2 flex-grow-1 tab-content p-3 card">
+                <!-- -------------------------------------------------------- -->
+                <!-- --------------------------news_details_banner ----------------- -->
+                <!-- --------------------------------------------------------- -->
+                <div
+                  v-if="tab == 'news_details_banner'"
+                  :class="tab == 'news_details_banner' ? ' active' : ''"
+                  class="tab-pane active"
+                  id="news_details_banner"
+                >
+                  <form
+                    @submit.prevent="SectionHeadingHandler"
+                    enctype="multipart/form-data"
+                  >
+                    <div class="form-group row">
+                      <label class="col-lg-3 col-form-label form-control-label"
+                        >Title</label
+                      >
+                      <div class="col-lg-9">
+                        <input
+                          name="title"
+                          class="form-control"
+                          type="text"
+                          :value="`${get_heading_value(
+                            'news_details_banner',
+                            'title'
+                          )}`"
+                          placeholder="Enter title"
+                        />
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-lg-3 col-form-label form-control-label"
+                        >Background Image</label
+                      >
+                      <div class="col-lg-9">
+                        <input
+                          class="form-control"
+                          name="background_image"
+                          type="file"
+                        />
+                        <img
+                          v-if="
+                            get_heading_value(
+                              'news_details_banner',
+                              'background_image'
+                            )
+                          "
+                          class="mt-2"
+                          :src="`${get_heading_value(
+                            'news_details_banner',
+                            'background_image'
+                          )}`"
+                          height="100"
+                          width="100"
+                          alt=""
+                        />
+                      </div>
+                    </div>
+                    <!-- Submit Button -->
+                    <div class="form-group row">
+                      <label
+                        class="col-lg-3 col-form-label form-control-label"
+                      ></label>
+                      <div class="col-lg-9">
+                        <input
+                          type="submit"
+                          class="btn btn-primary"
+                          value="Save Changes"
+                        />
+                      </div>
+                    </div>
+                  </form>
+                </div>
                 <!-- -------------------------------------------------------- -->
                 <!-- --------------------------news_details_news_comment ----------------- -->
                 <!-- --------------------------------------------------------- -->
@@ -104,7 +189,7 @@ import { section_heading_store } from "../store/section_heading_store";
 import { mapState, mapActions } from "pinia";
 export default {
   data: () => ({
-    tab: "news_details_news_comment",
+    tab: "news_details_banner",
   }),
   created() {
     this.get_all_section_headings();

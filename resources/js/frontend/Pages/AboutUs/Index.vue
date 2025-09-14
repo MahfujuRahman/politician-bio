@@ -12,15 +12,19 @@
   <!-- Banner section start here -->
   <BannerSkeleton v-if="shouldShowBannerSkeleton" />
   <common-banner
-    v-else
-    :background-image="'frontend/assets/img/about-bg.png'"
-    :heading="'About Us'"
+    v-else-if="about_us_banner"
+    :background-image="
+        '/'.about_us_banner?.background_image ||
+        '/frontend/assets/img/about-bg.png'
+      "
+    :heading="about_us_banner?.title || 'About Us'"
     :breadcrumbs="[
       { text: 'Home', url: '/' },
       { text: 'About Us', url: '/about-us' },
     ]"
     key="about-us"
   />
+
   <!-- Banner section End here -->
 
   <!-- AboutUs Section Start Here -->
@@ -270,6 +274,9 @@ export default {
     ]),
 
     // Section heading data computed properties
+    about_us_banner() {
+      return this.get_section_headings_data("about_us_banner");
+    },
     volunteerSection() {
       return this.get_section_headings_data("about_us_volunteer");
     },

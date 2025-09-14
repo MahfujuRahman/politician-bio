@@ -8,8 +8,12 @@
   <!-- navbar area end -->
   <!-- banner section start here -->
   <common-banner
-    :background-image="'/frontend/assets/img/about-bg.png'"
-    :heading="'News Details'"
+    v-if="newsDetailsBannerSection"
+    :background-image="
+        '/' + newsDetailsBannerSection?.background_image ||
+        '/frontend/assets/img/about-bg.png'
+      "
+    :heading="newsDetailsBannerSection?.title || 'News Details'"
     :breadcrumbs="[
       { text: 'Home', url: '/' },
       { text: 'News', url: '/pages/news' },
@@ -262,6 +266,9 @@ export default {
     ]),
     newsDetailsCommentSection() {
       return this.get_section_headings_data("news_details_news_comment");
+    },
+    newsDetailsBannerSection() {
+      return this.get_section_headings_data("news_details_banner");
     },
     getTagsList() {
       if (!this.news_details?.tags) return [];

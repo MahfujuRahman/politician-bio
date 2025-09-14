@@ -10,10 +10,12 @@
   <!-- Banner Section with Skeleton -->
   <BannerSkeleton v-if="shouldShowBannerSkeleton" />
   <common-banner
-    v-else
-    ref="bannerSection"
-    :background-image="'/frontend/assets/img/about-bg.png'"
-    :heading="'Event details'"
+    v-else-if="eventDetailsBannerSection"
+    :background-image="
+        '/' + eventDetailsBannerSection?.background_image ||
+        '/frontend/assets/img/about-bg.png'
+      "
+    :heading="eventDetailsBannerSection?.title || 'Event details'"
     :breadcrumbs="[
       { text: 'Home', url: '/' },
       { text: 'Events', url: '/events/event' },
@@ -268,6 +270,9 @@ export default {
       "latest_events",
       "section_headings",
     ]),
+    eventDetailsBannerSection() {
+      return this.get_section_headings_data("event_details_banner");
+    },
     eventDetailsSpeakersSection() {
       return this.get_section_headings_data("event_details_speakers");
     },

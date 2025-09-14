@@ -9,9 +9,12 @@
   <!-- banner section start here -->
   <BannerSkeleton v-if="shouldShowBannerSkeleton" />
   <common-banner
-    v-else
-    :background-image="'/frontend/assets/img/about-bg.png'"
-    :heading="'Contact Us'"
+    v-else-if="contactUsBannerSection"
+    :background-image="
+        '/' + contactUsBannerSection?.background_image ||
+        '/frontend/assets/img/about-bg.png'
+      "
+    :heading="contactUsBannerSection?.title || 'Contact Us'"
     :breadcrumbs="[
       { text: 'Home', url: '/' },
       { text: 'Contact Us', url: '/contact-us' },
@@ -216,6 +219,9 @@ export default {
     ...mapState(contact_store, ["addresses", "section_headings"]),
     contactUsAddressSection() {
       return this.get_section_headings_data("contact_us_contact_address");
+    },
+    contactUsBannerSection() {
+      return this.get_section_headings_data("contact_banner");
     },
     contactUsPeopleSection() {
       return this.get_section_headings_data("contact_us_contact_people");

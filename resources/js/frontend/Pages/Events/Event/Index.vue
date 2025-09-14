@@ -11,10 +11,12 @@
   <!-- Banner Section with Skeleton -->
   <BannerSkeleton v-if="shouldShowBannerSkeleton" />
   <common-banner
-    v-else
-    ref="bannerSection"
-    :background-image="'/frontend/assets/img/about-bg.png'"
-    :heading="'Events'"
+    v-else-if="eventsBannerSection"
+    :background-image="
+        '/' + eventsBannerSection?.background_image ||
+        '/frontend/assets/img/about-bg.png'
+      "
+    :heading="eventsBannerSection?.title || 'Events'"
     :breadcrumbs="[
       { text: 'Home', url: '/' },
       { text: 'Events', url: '/events/event' },
@@ -227,6 +229,9 @@ export default {
     ...mapState(events_store, ["events", "section_headings"]),
     eventsSection() {
       return this.get_section_headings_data("events_events");
+    },
+    eventsBannerSection() {
+      return this.get_section_headings_data("event_banner");
     },
     shouldShowBannerSkeleton() {
       return this.loading;

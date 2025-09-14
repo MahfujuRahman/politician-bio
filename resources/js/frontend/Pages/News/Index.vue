@@ -10,9 +10,12 @@
   <!-- banner section start here -->
   <BannerSkeleton v-if="shouldShowBannerSkeleton" />
   <common-banner
-    v-else
-    :background-image="'/frontend/assets/img/about-bg.png'"
-    :heading="'News'"
+    v-else-if="newsBannerSection"
+    :background-image="
+        '/' + newsBannerSection?.background_image ||
+        '/frontend/assets/img/about-bg.png'
+      "
+    :heading="newsBannerSection?.title || 'News'"
     :breadcrumbs="[
       { text: 'Home', url: '/' },
       { text: 'News', url: '/news' },
@@ -272,6 +275,9 @@ export default {
     ]),
     newsSection() {
       return this.get_section_headings_data("news_news");
+    },
+    newsBannerSection() {
+      return this.get_section_headings_data("news_banner");
     },
     shouldShowBannerSkeleton() {
       return this.loading;

@@ -8,14 +8,19 @@
   <!-- navbar area end -->
   <!-- banner section start here -->
   <common-banner
-    :background-image="'/frontend/assets/img/about-bg.png'"
-    :heading="'Our Team'"
+    v-if="teamBannerSection"
+    :background-image="
+        '/' + teamBannerSection?.background_image ||
+        '/frontend/assets/img/about-bg.png'
+      "
+    :heading="teamBannerSection?.title || 'Our Team'"
     :breadcrumbs="[
       { text: 'Home', url: '/' },
       { text: 'Our Team', url: '/pages/team' },
     ]"
     key="team"
   />
+
   <!-- banner section End here -->
 
   <!-- Volunteer Team Section Start here -->
@@ -100,6 +105,9 @@ export default {
     ...mapState(team_store, ["volunteers", "counters", "section_headings"]),
     teamVolunteerSection() {
       return this.get_section_headings_data("team_volunteer");
+    },
+    teamBannerSection() {
+      return this.get_section_headings_data("team_banner");
     },
   },
 };

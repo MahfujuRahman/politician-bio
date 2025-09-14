@@ -11,10 +11,12 @@
   <!-- Banner Section with Skeleton -->
   <BannerSkeleton v-if="shouldShowBannerSkeleton" />
   <common-banner
-    v-else
-    ref="bannerSection"
-    :background-image="'/frontend/assets/img/about-bg.png'"
-    :heading="'Donations'"
+    v-else-if="donationBannerSection"
+    :background-image="
+        donationBannerSection?.background_image ||
+        '/frontend/assets/img/about-bg.png'
+      "
+    :heading="donationBannerSection?.title || 'Donations'"
     :breadcrumbs="[
       { text: 'Home', url: '/' },
       { text: 'Donations', url: '/donation' },
@@ -261,6 +263,9 @@ export default {
     // Section heading data computed properties
     donationSection() {
       return this.get_section_headings_data("donation_donation_all");
+    },
+    donationBannerSection() {
+      return this.get_section_headings_data("donation_banner");
     },
     shouldShowBannerSkeleton() {
       return this.loading;

@@ -8,8 +8,12 @@
   <!-- navbar area end -->
   <!-- banner section start here -->
   <common-banner
-    :background-image="'/frontend/assets/img/about-bg.png'"
-    :heading="'Gallery'"
+    v-if="galleryBannerSection"
+    :background-image="
+        '/' + galleryBannerSection?.background_image ||
+        '/frontend/assets/img/about-bg.png'
+      "
+    :heading="galleryBannerSection?.title || 'Gallery'"
     :breadcrumbs="[
       { text: 'Home', url: '/' },
       { text: 'Gallery', url: '/pages/gallery' },
@@ -92,6 +96,9 @@ export default {
     },
     galleryNewsSection() {
       return this.get_section_headings_data("gallery_news");
+    },
+    galleryBannerSection() {
+      return this.get_section_headings_data("gallery_banner");
     },
   },
 };

@@ -8,8 +8,12 @@
   <!-- navbar area end -->
   <!-- banner section start here -->
   <common-banner
-    :background-image="'/frontend/assets/img/about-bg.png'"
-    :heading="'Services Details'"
+    v-if="servicesDetailsBannerSection"
+    :background-image="
+        '/' + servicesDetailsBannerSection?.background_image ||
+        '/frontend/assets/img/about-bg.png'
+      "
+    :heading="servicesDetailsBannerSection?.title || 'Services Details'"
     :breadcrumbs="[
       { text: 'Home', url: '/' },
       { text: 'Services', url: '/pages/services' },
@@ -128,6 +132,9 @@ export default {
     },
     servicesDetailsWhyChooseUsSection() {
       return this.get_section_headings_data("services_details_why_choose_us");
+    },
+    servicesDetailsBannerSection() {
+      return this.get_section_headings_data("service_details_banner");
     },
   },
 };

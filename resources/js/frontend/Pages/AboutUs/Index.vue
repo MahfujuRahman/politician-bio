@@ -14,7 +14,7 @@
   <common-banner
     v-else-if="about_us_banner"
     :background-image="
-        '/'.about_us_banner?.background_image ||
+        about_us_banner?.background_image ||
         '/frontend/assets/img/about-bg.png'
       "
     :heading="about_us_banner?.title || 'About Us'"

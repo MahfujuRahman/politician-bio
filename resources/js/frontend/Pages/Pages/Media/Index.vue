@@ -11,10 +11,12 @@
   <!-- Banner Section with Skeleton -->
   <BannerSkeleton v-if="shouldShowBannerSkeleton" />
   <common-banner
-    v-else
-    ref="bannerSection"
-    :background-image="'/frontend/assets/img/about-bg.png'"
-    :heading="'Media'"
+    v-if="mediaBannerSection"
+    :background-image="
+        '/' + mediaBannerSection?.background_image ||
+        '/frontend/assets/img/about-bg.png'
+      "
+    :heading="mediaBannerSection?.title || 'Media'"
     :breadcrumbs="[
       { text: 'Home', url: '/' },
       { text: 'Media', url: '/media' },
@@ -259,6 +261,9 @@ export default {
     // Section heading data computed properties
     mediaSection() {
       return this.get_section_headings_data("media_media_all");
+    },
+    mediaBannerSection() {
+      return this.get_section_headings_data("media_banner");
     },
     shouldShowBannerSkeleton() {
       return this.loading;

@@ -8,13 +8,17 @@
   <!-- navbar area end -->
   <!-- banner section start here -->
   <common-banner
-    :background-image="'/frontend/assets/img/about-bg.png'"
-    :heading="'Help & FAQ\'s'"
+    v-if="faqBannerSection"
+    :background-image="
+        '/' + faqBannerSection?.background_image ||
+        '/frontend/assets/img/about-bg.png'
+      "
+    :heading="faqBannerSection?.title || 'Services'"
     :breadcrumbs="[
       { text: 'Home', url: '/' },
       { text: 'Help & FAQ\'s', url: '/pages/faq' },
     ]"
-    key="history"
+    key="faq"
   />
   <!-- banner section End here -->
 
@@ -202,6 +206,9 @@ export default {
     ...mapState(faqs_store, ["faqs", "website_settings", "section_headings"]),
     faqSection() {
       return this.get_section_headings_data("faq_faq");
+    },
+    faqBannerSection() {
+      return this.get_section_headings_data("faq_banner");
     },
   },
 };

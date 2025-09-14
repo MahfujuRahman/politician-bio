@@ -29,7 +29,8 @@ export const store = defineStore("service_details_page", {
       }
       if (!entry) return false;
       const now = Date.now();
-      return now - entry.timestamp < 600000;
+     return now - entry.timestamp < 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+
     },
     async _setCache(key, data) {
       const entry = { data, timestamp: Date.now() };

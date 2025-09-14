@@ -13,11 +13,11 @@
               <ul
                 class="flex-column nav nav-tabs nav-tabs-primary top-icon nav-justified card"
               >
-               <li class="nav-item" @click="tab = 'service_banner'">
+               <li class="nav-item" @click="tab = 'service_details_banner'">
                   <a
-                    :class="tab == 'service_banner' ? ' active' : ''"
+                    :class="tab == 'service_details_banner' ? ' active' : ''"
                     href="javascript:void();"
-                    data-target="#service_banner"
+                    data-target="#service_details_banner"
                     data-toggle="pill"
                     class="nav-link"
                     ><i class="icon-note"></i>
@@ -52,13 +52,13 @@
               </ul>
               <div class="ml-2 flex-grow-1 tab-content p-3 card">
                 <!-- -------------------------------------------------------- -->
-                <!-- --------------------------service_banner ----------------- -->
+                <!-- --------------------------service_details_banner ----------------- -->
                 <!-- --------------------------------------------------------- -->
                 <div
-                  v-if="tab == 'service_banner'"
-                  :class="tab == 'service_banner' ? ' active' : ''"
+                  v-if="tab == 'service_details_banner'"
+                  :class="tab == 'service_details_banner' ? ' active' : ''"
                   class="tab-pane active"
-                  id="service_banner"
+                  id="service_details_banner"
                 >
                   <form
                     @submit.prevent="SectionHeadingHandler"
@@ -74,7 +74,7 @@
                           class="form-control"
                           type="text"
                           :value="`${get_heading_value(
-                            'service_banner',
+                            'service_details_banner',
                             'title'
                           )}`"
                           placeholder="Enter title"
@@ -94,13 +94,13 @@
                         <img
                           v-if="
                             get_heading_value(
-                              'service_banner',
+                              'service_details_banner',
                               'background_image'
                             )
                           "
                           class="mt-2"
                           :src="`${get_heading_value(
-                            'service_banner',
+                            'service_details_banner',
                             'background_image'
                           )}`"
                           height="100"
@@ -322,7 +322,7 @@ import { section_heading_store } from "../store/section_heading_store";
 import { mapState, mapActions } from "pinia";
 export default {
   data: () => ({
-    tab: "service_banner",
+    tab: "service_details_banner",
   }),
   created() {
     this.get_all_section_headings();

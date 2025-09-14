@@ -9,8 +9,12 @@
   <!-- navbar area end -->
   <!-- banner section start here -->
   <common-banner
-    :background-image="'/frontend/assets/img/about-bg.png'"
-    :heading="'Our History'"
+    v-if="historyBannerSection"
+    :background-image="
+        '/' + historyBannerSection?.background_image ||
+        '/frontend/assets/img/about-bg.png'
+      "
+    :heading="historyBannerSection?.title || 'Our History'"
     :breadcrumbs="[
       { text: 'Home', url: '/' },
       { text: 'Our History', url: '/pages/history' },
@@ -19,22 +23,15 @@
   />
   <!-- banner section End here -->
 
+
   <!-- Jour Journey Section Start Her -->
   <!-- <our-journey :journeyItems="journeyItems" :contentPosition="'top_left'" /> -->
-  <OurJourney
-    v-if="ourJourney.length > 0"
-    :journeyItems="ourJourney"
-    :contentPosition="'top_left'"
-  />
+  <OurJourney v-if="ourJourney.length > 0" :journeyItems="ourJourney" :contentPosition="'top_left'" />
   <!-- Jour Journey Section End Her -->
 
   <!-- Our History Timeline Section Start Here -->
-  <history-timeline
-    v-if="history_timelines"
-    :timelineItems="history_timelines"
-    :short_title="historyTimelineSection?.short_title"
-    :long_title="historyTimelineSection?.long_title"
-  />
+  <history-timeline v-if="history_timelines" :timelineItems="history_timelines"
+    :short_title="historyTimelineSection?.short_title" :long_title="historyTimelineSection?.long_title" />
   <!-- Our History Timeline Section End Here -->
 
   <!-- Counter Section Start -->
@@ -181,11 +178,15 @@ export default {
       "ourJourney",
       "history_timelines",
       "counters",
+      'loading',
     ]),
 
     // Section heading data computed properties
     historyTimelineSection() {
       return this.get_section_headings_data("history_timeline");
+    },
+    historyBannerSection() {
+      return this.get_section_headings_data("history_banner");
     },
   },
 

@@ -9,8 +9,12 @@
   <!-- navbar area end -->
   <!-- banner section start here -->
   <common-banner
-    :background-image="'/frontend/assets/img/about-bg.png'"
-    :heading="'Our Principles'"
+    v-if="principlesBannerSection"
+    :background-image="
+        '/' + principlesBannerSection?.background_image ||
+        '/frontend/assets/img/about-bg.png'
+      "
+    :heading="principlesBannerSection?.title || 'Our Principles'"
     :breadcrumbs="[
       { text: 'Home', url: '/' },
       { text: 'Our Principles', url: '/pages/principles' },
@@ -103,6 +107,9 @@ export default {
     ]),
 
     // Section heading data computed properties
+    principlesBannerSection() {
+      return this.get_section_headings_data("principle_banner");
+    },
     principlesSection() {
       return this.get_section_headings_data("principles_principles");
     },

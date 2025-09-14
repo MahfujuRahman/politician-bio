@@ -10,16 +10,19 @@
   <!-- Banner Section with Skeleton -->
   <BannerSkeleton v-if="shouldShowBannerSkeleton" />
   <common-banner
-    v-else
-    ref="bannerSection"
-    :background-image="'/frontend/assets/img/about-bg.png'"
-    :heading="'Issues'"
+    v-else-if="issuesBannerSection"
+    :background-image="
+        '/' + issuesBannerSection?.background_image ||
+        '/frontend/assets/img/about-bg.png'
+      "
+    :heading="issuesBannerSection?.title || 'Issues'"
     :breadcrumbs="[
       { text: 'Home', url: '/' },
       { text: 'Issues', url: '/pages/issues' },
     ]"
     key="issues"
   />
+
 
   <!-- Issues Around Us Section Start Here -->
   <div class="issues-around-us-section margin-top-120">
@@ -239,6 +242,9 @@ export default {
     ...mapState(issues_store, ["issues", "section_headings"]),
     issuesSection() {
       return this.get_section_headings_data("issues_issues");
+    },
+    issuesBannerSection() {
+      return this.get_section_headings_data("issue_banner");
     },
     shouldShowBannerSkeleton() {
       return this.loading;

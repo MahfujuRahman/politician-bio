@@ -8,9 +8,14 @@
   </template>
   <!-- navbar area end -->
   <!-- banner section start here -->
+
   <common-banner
-    :background-image="'/frontend/assets/img/about-bg.png'"
-    :heading="'Services'"
+    v-if="servicesBannerSection"
+    :background-image="
+        '/' + servicesBannerSection?.background_image ||
+        '/frontend/assets/img/about-bg.png'
+      "
+    :heading="servicesBannerSection?.title || 'Services'"
     :breadcrumbs="[
       { text: 'Home', url: '/' },
       { text: 'Services', url: '/pages/services' },
@@ -106,6 +111,9 @@ export default {
     ]),
     servicesSection() {
       return this.get_section_headings_data("services_services");
+    },
+    servicesBannerSection() {
+      return this.get_section_headings_data("service_banner");
     },
     servicesPublicCommentsSection() {
       return this.get_section_headings_data("services_public_comments");

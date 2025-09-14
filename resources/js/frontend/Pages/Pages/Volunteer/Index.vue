@@ -8,8 +8,12 @@
   <!-- navbar area end -->
   <!-- banner section start here -->
   <common-banner
-    :background-image="'/frontend/assets/img/about-bg.png'"
-    :heading="'Volunteer'"
+    v-if="volunteerBannerSection"
+    :background-image="
+        '/' + volunteerBannerSection?.background_image ||
+        '/frontend/assets/img/about-bg.png'
+      "
+    :heading="volunteerBannerSection?.title || 'Volunteer'"
     :breadcrumbs="[
       { text: 'Home', url: '/' },
       { text: 'Volunteer', url: '/pages/volunteer' },
@@ -211,6 +215,9 @@ export default {
     ]),
     volunteerGetInvolvedSection() {
       return this.get_section_headings_data("volunteer_get_involved");
+    },
+    volunteerBannerSection() {
+      return this.get_section_headings_data("volunteer_banner");
     },
   },
 

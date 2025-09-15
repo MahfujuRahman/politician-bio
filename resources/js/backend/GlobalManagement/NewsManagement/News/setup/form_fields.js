@@ -1,11 +1,4 @@
 export default [
-	{
-		name: "banner_image",
-		label: "Enter your banner image",
-		type: "file",
-		multiple: "false",
-		value: "",
-	},
 
 	{
 		name: "title",
@@ -34,13 +27,12 @@ export default [
 		value: "",
 		row_col_class: "col-md-12",
 	},
-
-	// {
-	// 	name: "tags",
-	// 	label: "Enter your tags",
-	// 	type: "text",
-	// 	value: "",
-	// },
-
+		{
+		name: "banner_image",
+		label: "Enter your banner image",
+		type: "file",
+		multiple: "false",
+		value: "",
+	},
 	
 ];

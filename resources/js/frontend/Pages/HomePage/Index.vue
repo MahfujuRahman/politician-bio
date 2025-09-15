@@ -255,7 +255,7 @@ export default {
         testimonial: true,
         news: true,
       },
-      skeletonMinTime: 2000, // 2 seconds
+      skeletonMinTime: 100, // 2 seconds
       // Scroll persistence helpers
       scrollSaveThrottle: 50, // reduced to save more frequently
       lastScrollSave: 0,

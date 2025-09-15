@@ -122,3 +122,9 @@ export default {
 };
 </script>
 
+
+<style scoped>
+.navbar{
+  background: red !important;
+}
+</style>

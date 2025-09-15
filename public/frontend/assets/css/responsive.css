@@ -3805,6 +3805,7 @@
     
     .history-single-item .history-year {
         left: 65%;
+        top: 40%;
     }
     .history-single-item .history-year .month {
         font-size: 17px;
@@ -4135,7 +4136,7 @@
     }
     .history-single-item .history-year {
         left: 62%;
-        top: 50%;
+        top: 40%;
     }
     .history-single-item .history-year .month {
         font-size: 16px;

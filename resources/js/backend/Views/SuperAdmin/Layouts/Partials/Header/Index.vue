@@ -1,7 +1,7 @@
 <template>
   <!--Start topbar header-->
   <header class="topbar-nav">
-    <nav class="navbar navbar-expand fixed-top">
+    <nav class="navbar navbar-expand fixed-top bg-red">
       <div class="toggle-menu">
         <i @click.prevent="toggle_menu" class="zmdi zmdi-menu"></i>
       </div>

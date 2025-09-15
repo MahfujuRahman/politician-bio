@@ -265,3 +265,9 @@ export default {
   },
 };
 </script>
+
+<style>
+.navbar{
+  background: red;
+}
+</style>

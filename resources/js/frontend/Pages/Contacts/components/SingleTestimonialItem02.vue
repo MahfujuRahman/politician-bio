@@ -3,12 +3,15 @@
     class="single-testimonial-item-02 wow animate__animated animate__fadeInUp"
     :class="delay"
   >
-    <img :src="flagImg" class="shape-01 style-01" alt="" />
+    <!-- <img :src="flagImg" class="shape-01 style-01" alt="" /> -->
     <div class="icon style-01">
       <i :class="icon"></i>
     </div>
     <div class="content">
-      <h4 class="title">{{ title }}</h4>
+      <h4 v-if="!map" class="title">{{ title }}</h4>
+      <a v-else :href="map" target="_blank">
+        <h4 class="title">{{ title }}</h4>
+      </a>
       <ul class="contact-info-list-02">
         <li class="single-info-item">
           <div class="icon"><i class="icon-location"></i></div>
@@ -37,6 +40,7 @@ export default {
     address: String,
     phone: String,
     email: String,
+    map: String,
     delay: {
       type: String,
       default: "",

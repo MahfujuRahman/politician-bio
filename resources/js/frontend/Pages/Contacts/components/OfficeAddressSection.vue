@@ -30,13 +30,14 @@
           :key="idx"
         >
           <single-testimonial-item-02
-            :title="address.title"
+            :title="address.name"
             :icon="address.icon"
             flag-img="/frontend/assets/img/flag-shape.png"
             :address="address.address"
             :phone="address.phone_number"
             :email="address.email"
             :delay="address.delay"
+            :map="address.map_link"
           />
         </div>
       </div>

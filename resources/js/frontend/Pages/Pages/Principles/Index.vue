@@ -45,7 +45,10 @@
   <people-say-section
     v-if="comments.length > 0"
     :comments="comments"
+    :primary_image="publicCommentsSection?.primary_image"
+    :background_image="publicCommentsSection?.background_image"
   />
+
   <!-- People say section-02 end here -->
   <!-- People say section-02 end here -->
 

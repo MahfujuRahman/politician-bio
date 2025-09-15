@@ -4,11 +4,14 @@
     :style="{
       backgroundImage: `url(${
         background_image
-          ? `/${background_image}`
+          ? background_image.startsWith('http') || background_image.startsWith('/') 
+            ? background_image 
+            : `/${background_image}`
           : '/frontend/assets/img/group-activity-02.png'
       })`,
     }"
   >
+ 
     <div class="shapes">
       <img src="/frontend/assets/img/shape-04.png" class="shape-01" alt="" />
       <img src="/frontend/assets/img/shape-03.png" class="shape-02" alt="" />
@@ -25,7 +28,7 @@
               <div
                 class="people-say-single-item style-01"
                 style="background-image: url(/frontend/assets/img/line-03.png)"
-                v-for="(item, index) in comments"
+                v-for="(item, index) in validComments"
                 :key="`comment-${index}`"
               >
                 <img
@@ -53,9 +56,14 @@
                     <div class="thumb">
                       <img
                         :src="
-                          item?.thumb ? `/${item.thumb}` : '/uploads/avatar.jpg'
+                          item?.commenter_image 
+                            ? item.commenter_image.startsWith('http') || item.commenter_image.startsWith('/') 
+                              ? item.commenter_image 
+                              : `/${item.commenter_image}` 
+                            : '/uploads/avatar.jpg'
                         "
                         alt=""
+                        @error="$event.target.src = '/uploads/avatar.jpg'"
                       />
                     </div>
                     <span class="author-name">{{ item?.name }}</span>
@@ -75,7 +83,9 @@
               :style="{
                 backgroundImage: `url(${
                   primary_image
-                    ? `/${primary_image}`
+                    ? primary_image.startsWith('http') || primary_image.startsWith('/') 
+                      ? primary_image 
+                      : `/${primary_image}`
                     : '/frontend/assets/img/young-man-with-flag.png'
                 })`,
               }"
@@ -127,14 +137,24 @@ export default {
       ],
     },
   },
+  computed: {
+    validComments() {
+      return this.comments?.filter(comment => 
+        comment && 
+        (comment.comment || comment.description) && 
+        comment.name &&
+        comment.name.trim() !== ''
+      ) || [];
+    }
+  },
   created: function () {
     console.log("PeopleSaySection created with comments:", this.comments);
-    console.log("Props received:", {
-      short_title: this.short_title,
-      long_title: this.long_title,
-      primary_image: this.primary_image,
-      background_image: this.background_image,
-    });
+    // console.log("Props received:", {
+    //   short_title: this.short_title,
+    //   long_title: this.long_title,
+    //   primary_image: this.primary_image,
+    //   background_image: this.background_image,
+    // });
   },
   mounted() {
     console.log("PeopleSaySection mounted");
@@ -223,10 +243,17 @@ export default {
       try {
         if (typeof window !== "undefined" && window.$) {
           const $carousel = window.$(".testimonial-carousel-four");
-          if ($carousel.length > 0 && $carousel.hasClass("owl-loaded")) {
+          if ($carousel.length > 0) {
             console.log("Destroying existing carousel");
-            $carousel.trigger("destroy.owl.carousel");
-            $carousel.removeClass("owl-loaded owl-drag");
+            // Try multiple methods to ensure clean destruction
+            if ($carousel.hasClass("owl-loaded")) {
+              $carousel.trigger("destroy.owl.carousel");
+            }
+            $carousel.removeClass("owl-loaded owl-drag owl-carousel");
+            $carousel.find('.owl-stage-outer').contents().unwrap();
+            $carousel.find('.owl-stage').contents().unwrap();
+            $carousel.find('.owl-nav, .owl-dots').remove();
+            $carousel.off('.owl.carousel');
           }
         }
       } catch (error) {
@@ -268,11 +295,21 @@ export default {
           return;
         }
 
+        // Check if we have valid comments with content
+        const validComments = this.comments?.filter(comment => 
+          comment && (comment.comment || comment.description) && comment.name
+        ) || [];
+
+        if (validComments.length === 0) {
+          console.log("No valid comments to display");
+          return;
+        }
+
         try {
           console.log("Initializing OwlCarousel...");
           $carousel.owlCarousel({
-            loop: this.comments && this.comments.length > 1, // Only loop if more than 1 item
-            autoplay: this.comments && this.comments.length > 1,
+            loop: validComments.length > 1, // Only loop if more than 1 item
+            autoplay: validComments.length > 1,
             autoplayTimeout: 4000,
             autoplaySpeed: 1000,
             smartSpeed: 1000,
@@ -301,6 +338,8 @@ export default {
           });
         } catch (error) {
           console.log("Error initializing carousel:", error);
+          // Fallback: show content without carousel
+          $carousel.find('.people-say-single-item').show();
         }
       }, 100); // Additional small delay
     },

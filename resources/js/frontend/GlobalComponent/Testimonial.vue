@@ -9,6 +9,7 @@
       <div class="shape-03"></div>
       <div class="shape-04"></div>
     </div>
+    
     <div class="container">
       <div class="row">
         <div class="col-lg-6 offset-lg-6">

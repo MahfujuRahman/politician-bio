@@ -25,39 +25,15 @@
                   >
                   <hr />
                 </li>
-                <li class="nav-item" @click="tab = 'media_images'">
+                <li class="nav-item" @click="tab = 'media_media_all'">
                   <a
-                    :class="tab == 'media_images' ? ' active' : ''"
+                    :class="tab == 'media_media_all' ? ' active' : ''"
                     href="javascript:void();"
-                    data-target="#media_images"
+                    data-target="#media_media_all"
                     data-toggle="pill"
                     class="nav-link"
                     ><i class="icon-note"></i>
-                    <span class="hidden-xs">Photo Gallery</span></a
-                  >
-                  <hr />
-                </li>
-                <li class="nav-item" @click="tab = 'media_video'">
-                  <a
-                    :class="tab == 'media_video' ? ' active' : ''"
-                    href="javascript:void();"
-                    data-target="#media_video"
-                    data-toggle="pill"
-                    class="nav-link"
-                    ><i class="icon-note"></i>
-                    <span class="hidden-xs">Video Gallery</span></a
-                  >
-                  <hr />
-                </li>
-                <li class="nav-item" @click="tab = 'media_news'">
-                  <a
-                    :class="tab == 'media_news' ? ' active' : ''"
-                    href="javascript:void();"
-                    data-target="#media_news"
-                    data-toggle="pill"
-                    class="nav-link"
-                    ><i class="icon-note"></i>
-                    <span class="hidden-xs">News</span></a
+                    <span class="hidden-xs">Media</span></a
                   >
                   <hr />
                 </li>
@@ -137,13 +113,13 @@
                   </form>
                 </div>
                 <!-- -------------------------------------------------------- -->
-                <!-- --------------------------media_images ----------------- -->
+                <!-- --------------------------media_media_all ----------------- -->
                 <!-- --------------------------------------------------------- -->
                 <div
-                  v-if="tab == 'media_images'"
-                  :class="tab == 'media_images' ? ' active' : ''"
+                  v-if="tab == 'media_media_all'"
+                  :class="tab == 'media_media_all' ? ' active' : ''"
                   class="tab-pane active"
-                  id="media_images"
+                  id="media_media_all"
                 >
                   <form
                     @submit.prevent="SectionHeadingHandler"
@@ -159,7 +135,7 @@
                           class="form-control"
                           type="text"
                           :value="`${get_heading_value(
-                            'media_images',
+                            'media_media_all',
                             'short_title'
                           )}`"
                           placeholder="Enter short title"
@@ -176,7 +152,7 @@
                           class="form-control"
                           type="text"
                           :value="`${get_heading_value(
-                            'media_images',
+                            'media_media_all',
                             'long_title'
                           )}`"
                           placeholder="Enter long title"
@@ -199,136 +175,6 @@
                   </form>
                 </div>
 
-                
-
-                <!-- -------------------------------------------------------- -->
-                <!-- --------------------------media_video ----------------- -->
-                <!-- --------------------------------------------------------- -->
-                <div
-                  v-if="tab == 'media_video'"
-                  :class="tab == 'media_video' ? ' active' : ''"
-                  class="tab-pane active"
-                  id="media_video"
-                >
-                  <form
-                    @submit.prevent="SectionHeadingHandler"
-                    enctype="multipart/form-data"
-                  >
-                    <div class="form-group row">
-                      <label class="col-lg-3 col-form-label form-control-label"
-                        >Short Title</label
-                      >
-                      <div class="col-lg-9">
-                        <input
-                          name="short_title"
-                          class="form-control"
-                          type="text"
-                          :value="`${get_heading_value(
-                            'media_video',
-                            'short_title'
-                          )}`"
-                          placeholder="Enter short title"
-                        />
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="col-lg-3 col-form-label form-control-label"
-                        >Long Title</label
-                      >
-                      <div class="col-lg-9">
-                        <input
-                          name="long_title"
-                          class="form-control"
-                          type="text"
-                          :value="`${get_heading_value(
-                            'media_video',
-                            'long_title'
-                          )}`"
-                          placeholder="Enter long title"
-                        />
-                      </div>
-                    </div>
-                    <!-- Submit Button -->
-                    <div class="form-group row">
-                      <label
-                        class="col-lg-3 col-form-label form-control-label"
-                      ></label>
-                      <div class="col-lg-9">
-                        <input
-                          type="submit"
-                          class="btn btn-primary"
-                          value="Save Changes"
-                        />
-                      </div>
-                    </div>
-                  </form>
-                </div>
-
-
-                <!-- -------------------------------------------------------- -->
-                <!-- --------------------------media_news ----------------- -->
-                <!-- --------------------------------------------------------- -->
-                <div
-                  v-if="tab == 'media_news'"
-                  :class="tab == 'media_news' ? ' active' : ''"
-                  class="tab-pane active"
-                  id="media_news"
-                >
-                  <form
-                    @submit.prevent="SectionHeadingHandler"
-                    enctype="multipart/form-data"
-                  >
-                    <div class="form-group row">
-                      <label class="col-lg-3 col-form-label form-control-label"
-                        >Short Title</label
-                      >
-                      <div class="col-lg-9">
-                        <input
-                          name="short_title"
-                          class="form-control"
-                          type="text"
-                          :value="`${get_heading_value(
-                            'media_news',
-                            'short_title'
-                          )}`"
-                          placeholder="Enter short title"
-                        />
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="col-lg-3 col-form-label form-control-label"
-                        >Title</label
-                      >
-                      <div class="col-lg-9">
-                        <input
-                          name="title"
-                          class="form-control"
-                          type="text"
-                          :value="`${get_heading_value(
-                            'media_news',
-                            'title'
-                          )}`"
-                          placeholder="Enter title"
-                        />
-                      </div>
-                    </div>
-                    <!-- Submit Button -->
-                    <div class="form-group row">
-                      <label
-                        class="col-lg-3 col-form-label form-control-label"
-                      ></label>
-                      <div class="col-lg-9">
-                        <input
-                          type="submit"
-                          class="btn btn-primary"
-                          value="Save Changes"
-                        />
-                      </div>
-                    </div>
-                  </form>
-                </div>
-
-                
               </div>
             </div>
           </div>

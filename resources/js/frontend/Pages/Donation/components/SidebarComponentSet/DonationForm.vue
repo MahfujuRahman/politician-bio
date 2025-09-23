@@ -1,4 +1,5 @@
 <template>
+
     <div class="col-lg-12">
         <div class="volunteer-form style-01">
             <div class="donate-programm">
@@ -159,6 +160,7 @@ export default {
         console.log('Mounted - amount:', this.amount);
         console.log('Type of amount:', typeof this.amount);
     },
+    
     methods: {
         getAmountText(amt) {
             return `$${amt}`;
@@ -183,7 +185,57 @@ export default {
 
             this.isSubmitting = true;
 
+            console.log('Payment method:', this.formData.payment_method);
+
+            // For payment gateway integrations, we need to handle redirects differently
+            if (this.formData.payment_method === 'sslcommerze') {
+                console.log('Using SSLCommerz - creating form submission');
+                
+                // Create a form and submit it to allow proper redirect
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '/api/v1/donations/store';
+                
+                // Add all form data as hidden inputs
+                Object.entries(this.formData).forEach(([key, value]) => {
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = key;
+                    input.value = value;
+                    form.appendChild(input);
+                });
+                
+                // Add CSRF token if available
+                const csrfToken = document.querySelector('meta[name="csrf-token"]');
+                if (csrfToken) {
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = '_token';
+                    input.value = csrfToken.getAttribute('content');
+                    form.appendChild(input);
+                }
+
+                // Get slug from URL parameters
+                const urlParams = new URLSearchParams(window.location.search);
+                const slug = urlParams.get('slug');
+                console.log('Donation slug from URL:', slug);
+                if (slug) {
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = 'donation_details_slug';
+                    input.value = slug;
+                    form.appendChild(input);
+                }
+
+                document.body.appendChild(form);
+                console.log('Submitting form for SSLCommerz redirect');
+                form.submit();
+                return; // Important: Don't continue with AJAX
+            }
+
+            // For offline payments, use AJAX
             try {
+                console.log('Using offline payment - AJAX submission');
                 const response = await axios.post('/donations/store', this.formData);
 
                 if (response.status === 200 || response.status === 201) {
@@ -222,7 +274,8 @@ export default {
                 payment_method: 'sslcommerze'
             };
         }
-    }
+    },
+
 }
 </script>
 

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Payment\PaymentController;
 use App\Modules\Controllers\Frontend\FrontendController;
 use App\Modules\Controllers\Frontend\Auth\AuthController;
 
@@ -50,3 +51,11 @@ Route::get('/single/terms-and-conditions', [FrontendController::class, 'TermsAnd
 Route::get('/login', [AuthController::class, 'LoginPage'])->name('LoginPage');
 Route::get('/register', [AuthController::class, 'RegisterPage'])->name('RegisterPage');
 Route::get('/forgot-password', [AuthController::class, 'ForgotPassword'])->name('ForgotPassword');
+
+
+// ssl commerz payment routes
+Route::get('sslcommerz/order', [PaymentController::class, 'order'])->name('payment.order');
+Route::post('sslcommerz/success', [PaymentController::class, 'success'])->name('payment.success');
+Route::post('sslcommerz/failure', [PaymentController::class, 'failure'])->name('sslc.failure');
+Route::post('sslcommerz/cancel', [PaymentController::class, 'cancel'])->name('sslc.cancel');
+Route::post('sslcommerz/ipn', [PaymentController::class, 'ipn'])->name('payment.ipn');

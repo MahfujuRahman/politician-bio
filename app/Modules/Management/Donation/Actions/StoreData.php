@@ -12,10 +12,22 @@ class StoreData
             $requestData = $request->validated();
 
             if ($data = self::$model::query()->create($requestData)) {
-                return messageResponse('Item added successfully', $data, 201);
+                if ($requestData['payment_method'] == 'sslcommerze') {
+                    return redirect()->route(
+                        'payment.order',
+                        [
+                            'amount' => $requestData['amount'],
+                            'customer_name' => $requestData['first_name'] . ' ' . $requestData['last_name'],
+                            'customer_email' => $requestData['email'],
+                            'donation_details_slug' => $request->donation_details_slug,
+                        ]
+                    );
+                } else {
+                    return messageResponse('Item added successfully', $data, 201);
+                }
             }
         } catch (\Exception $e) {
-            return messageResponse($e->getMessage(),[], 500, 'server_error');
+            return messageResponse($e->getMessage(), [], 500, 'server_error');
         }
     }
 }

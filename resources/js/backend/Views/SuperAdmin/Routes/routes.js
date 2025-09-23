@@ -7,6 +7,7 @@ import SettingsRoutes from "../Management/Settings/setup/routes.js";
 //UserRoutes
 import UserRoutes from "../Management/UserManagement/User/setup/routes.js";
 //routes
+import DonationRoutes from '../../../GlobalManagement/Donation/setup/routes.js';
 import VolunteerPreRequisiteRoutes from '../../../GlobalManagement/VolunteerManagement/VolunteerPreRequisite/setup/routes.js';
 import SectionHeadingRoutes from '../../../GlobalManagement/SectionHeadingManagement/SectionHeading/setup/routes.js';
 import PollOptionRoutes from '../../../GlobalManagement/PollManagement/PollOption/setup/routes.js';
@@ -53,6 +54,7 @@ const routes = {
       name: "adminDashboard",
     },
     //management routes
+        DonationRoutes,
         VolunteerPreRequisiteRoutes,
     SectionHeadingRoutes,
     PollOptionRoutes,

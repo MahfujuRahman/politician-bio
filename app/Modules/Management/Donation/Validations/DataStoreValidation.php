@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Management\DonationDetailsManagement\DonationDetails\Validations;
+namespace App\Modules\Management\Donation\Validations;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
@@ -42,14 +42,16 @@ class DataStoreValidation extends FormRequest
     public function rules(): array
     {
         return [
-            'author' => 'required | sometimes',
-            'date' => 'required | sometimes',
-            'title' => 'required | sometimes',
-            'content' => 'required | sometimes',
-            'target' => 'required | sometimes',
-            'achived' => 'required | sometimes',
-            'banner_image' => 'required | sometimes',
-            'amount_details' => 'nullable',
+            'first_name' => 'required | sometimes',
+            'last_name' => 'required | sometimes',
+            'email' => 'required | sometimes',
+            'number' => 'required | sometimes',
+            'address_1' => 'required | sometimes',
+            'address_2' => 'required | sometimes',
+            'city' => 'required | sometimes',
+            'state' => 'required | sometimes',
+            'payment_method' => 'required | sometimes',
+            'amount' => 'required | sometimes',
             'status' => ['sometimes', Rule::in(['active', 'inactive'])],
         ];
     }

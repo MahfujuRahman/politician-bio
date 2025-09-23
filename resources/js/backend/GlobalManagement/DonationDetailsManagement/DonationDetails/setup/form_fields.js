@@ -21,7 +21,6 @@ export default [
 	},
 
 	
-
 	{
 		name: "target",
 		label: "Enter your target",

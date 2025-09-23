@@ -1,10 +1,11 @@
+
 <template>
     <div>
         <form @submit.prevent="submitHandler">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <h5 class="text-capitalize">
-                        {{ param_id ? `${setup.edit_page_title}` : `${setup.create_page_title}` }}
+                        {{ param_id ? `${setup.edit_page_title}` : `${setup . create_page_title}` }}
 
                     </h5>
                     <div>
@@ -21,7 +22,7 @@
                 </div>
                 <div class="card-body card_body_fixed_height">
                     <div class="row">
-
+                
                         <template v-for="(form_field, index) in form_fields" v-bind:key="index">
 
                             <common-input :label="form_field.label" :type="form_field.type" :name="form_field.name"
@@ -30,39 +31,6 @@
                                 :row_col_class="form_field.row_col_class" />
 
                         </template>
-
-                        <!-- Amount Section with Dynamic Fields -->
-                        <div class="col-12 mt-3">
-                            <div class="card">
-                                <div class="card-header d-flex justify-content-between align-items-center">
-                                    <h6 class="mb-0">Amount Fields</h6>
-                                    <button type="button" class="btn btn-success btn-sm" @click="addAmountField">
-                                        <i class="fa fa-plus"></i> Add
-                                    </button>
-                                </div>
-                                <div class="card-body">
-                                    <div v-for="(amount, idx) in amountFields" :key="idx"
-                                        class="row mb-3 align-items-end">
-                                        <div class="col-md-11">
-                                            <label class="form-label">Amount {{ idx + 1 }}</label>
-                                            <input type="number" v-model="amountFields[idx]" class="form-control"
-                                                placeholder="Enter amount" step="0.01">
-                                        </div>
-                                        <div class="col-md-1">
-                                            <button v-if="amountFields.length > 1" type="button"
-                                                class="btn btn-danger w-100" @click="removeAmountField(idx)">
-                                                <i class="fa fa-minus"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    <!-- Hidden input to store JSON data -->
-                                    <input type="hidden" name="amount_details"
-                                        :value="JSON.stringify(amountFields.filter(a => a && a !== ''))">
-                                    
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div class="card-footer">
@@ -82,14 +50,13 @@ import { store } from "../store";
 import setup from "../setup";
 import form_fields from "../setup/form_fields";
 
-export default {
-    components: {},
+        export default {
+        components: {        },
 
     data: () => ({
         setup,
         form_fields,
         param_id: null,
-        amountFields: ['']
     }),
     created: async function () {
         let id = (this.param_id = this.$route.params.id);
@@ -110,7 +77,6 @@ export default {
             this.form_fields.forEach((item) => {
                 item.value = "";
             });
-            this.amountFields = [''];
         },
         set_fields: async function (id) {
             this.param_id = id;
@@ -123,26 +89,10 @@ export default {
                         }
                         // If the field is a textarea, set its summernote content dynamically
                         if (field.type === "textarea" && field.name === value[0]) {
-                            $(`#${field.name}`).summernote("code", value[1]);
+                            $(`#${field . name}`).summernote("code", value[1]);
                         }
                     });
                 });
-
-                // Load amount details if available
-                if (this.item.amount_details) {
-                    try {
-                        const amountData = typeof this.item.amount_details === 'string'
-                            ? JSON.parse(this.item.amount_details)
-                            : this.item.amount_details;
-
-                        if (Array.isArray(amountData) && amountData.length > 0) {
-                            this.amountFields = amountData;
-                        }
-                    } catch (error) {
-                        console.error('Error parsing amount details:', error);
-                        this.amountFields = [''];
-                    }
-                }
             }
         },
         submitHandler: async function ($event) {
@@ -153,7 +103,7 @@ export default {
                 // await this.get_all();
                 if ([200, 201].includes(response.status)) {
                     window.s_alert("Data successfully updated");
-                    this.$router.push({ name: `Details${this.setup.route_prefix}` });
+                    this.$router.push({ name: `Details${this . setup . route_prefix}` });
                 }
             } else {
                 this.setSummerEditor();
@@ -163,8 +113,8 @@ export default {
                     $event.target.reset();
                     // Clear summernote editors for all textarea fields
                     this.form_fields.forEach(field => {
-                        if (field.type === 'textarea' && $(`#${field.name}`).length) {
-                            $(`#${field.name}`).summernote("code", '');
+                        if (field.type === 'textarea' && $(`#${field . name}`).length) {
+                            $(`#${field . name}`).summernote("code", '');
                         }
                     });
                     window.s_alert("Data Successfully Created");
@@ -175,27 +125,19 @@ export default {
         setSummerEditor() {
             // Dynamically set summernote content for all textarea fields
             this.form_fields.forEach(field => {
-                if (field.type === 'textarea' && $(`#${field.name}`).length) {
-                    const markupStr = $(`#${field.name}`).summernote("code");
+                if (field.type === 'textarea' && $(`#${field . name}`).length) {
+                    const markupStr = $(`#${field . name}`).summernote("code");
                     // Set the value in the form field object
                     field.value = markupStr;
                     // Optionally, update a hidden input if your backend expects it
-                    let $input = $(`#${field.name}_hidden`);
+                    let $input = $(`#${field . name}_hidden`);
                     if ($input.length === 0) {
-                        $input = $(`<input type="hidden" id="${field.name}_hidden" name="${field.name}">`);
-                        $(`#${field.name}`).parent().append($input);
+                        $input = $(`<input type="hidden" id="${field . name}_hidden" name="${field . name}">`);
+                        $(`#${field . name}`).parent().append($input);
                     }
                     $input.val(markupStr);
                 }
             });
-        },
-        addAmountField() {
-            this.amountFields.push('');
-        },
-        removeAmountField(index) {
-            if (this.amountFields.length > 1) {
-                this.amountFields.splice(index, 1);
-            }
         },
     },
 
@@ -203,12 +145,8 @@ export default {
         ...mapState(store, {
             item: "item",
         }),
-        totalAmount() {
-            return this.amountFields.reduce((total, amount) => {
-                const numAmount = parseFloat(amount) || 0;
-                return total + numAmount;
-            }, 0);
-        },
     },
 };
 </script>
+
+

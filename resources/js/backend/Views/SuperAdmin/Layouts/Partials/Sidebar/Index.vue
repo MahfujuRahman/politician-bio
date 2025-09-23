@@ -454,7 +454,8 @@
           },
         ]"
       />
-      <!-- Management end -->
+      <side-bar-single-menu :icon="`fa fa-plus`" :menu_title="`Donation`"  :route_name="`AllDonation`" />
+<!-- Management end -->
     </ul>
   </div>
 </template>

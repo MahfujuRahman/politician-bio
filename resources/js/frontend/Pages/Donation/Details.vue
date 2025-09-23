@@ -182,111 +182,9 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-12">
-          <div class="volunteer-form style-01">
-            <div class="donate-programm">
-              <div class="content">
-                <h6 class="subtitle">Thanks for Donating on this program</h6>
-                <p class="description style-01">Every pleasures is to welcomed pain avoided owing to the duty the
-                  obligations of business it will frequently.</p>
-                <div class="notice">
-                  <div class="icon">
-                    <i class="icon-danger"></i>
-                  </div>
-                  <p><span>Notice:</span> Test mode is enable. While in test mode no live donations are processed</p>
-                </div>
-                <div class="amount">
-                  <div class="btn-wrapper">
-                    <span class="price-btn">$25</span>
-                    <span class="price-btn">$50</span>
-                    <span class="price-btn">$100</span>
-                    <span class="price-btn">$200</span>
-                  </div>
-                  <div class="form-group">
-                    <input type="number" name="fname" placeholder="Custom amount" class="form-control" required=""
-                      aria-required="true">
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="contact-form style-01">
-              <form action="https://themeim.com/demo/senatory/request.html" class="contact-page-form" novalidate="novalidate">
-                <h6 class="title">Fill the following information for Donation.</h6>
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <input type="text" name="fname" placeholder="First Name" class="form-control" required=""
-                        aria-required="true">
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <input type="text" name="lname" placeholder="Last Name" class="form-control" required=""
-                        aria-required="true">
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <input type="email" class="form-control" placeholder="Email" required="" aria-required="true">
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <input type="text" name="telephone" placeholder="Phone Number" class="form-control" required=""
-                        aria-required="true">
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <input type="text" name="fname" placeholder="Address line 1" class="form-control" required=""
-                        aria-required="true">
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <input type="text" name="fname" placeholder="Address line 2" class="form-control" required=""
-                        aria-required="true">
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <input type="text" name="fname" placeholder="City" class="form-control" required=""
-                        aria-required="true">
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <input type="text" name="fname" placeholder="State*" class="form-control" required=""
-                        aria-required="true">
-                    </div>
-                  </div>
-                </div>
-              </form>
-            </div>
-            <div class="form-question">
-              <h6 class="title">How would you like to help? </h6>
-              <div class="check-box-wrapper">
-                <div class="check-box">
-                  <label class="container-box">
-                    Paypal
-                    <input type="checkbox" checked="checked">
-                    <span class="checkmark"></span>
-                  </label>
-                </div>
-                <div class="check-box">
-                  <label class="container-box">
-                    Offline payment
-                    <input type="checkbox">
-                    <span class="checkmark"></span>
-                  </label>
-                </div>
-              </div>
-            </div>
-            <div class="btn-wrapper">
-              <a href="#" class="boxed-btn btn-sanatory">Donation Now <span class="icon-paper-plan"></span></a>
-            </div>
-          </div>
-        </div>
+        
+        <donation-form></donation-form>
+
         <!-- <div class="col-lg-4">
           <SidebarWidgets />
         </div> -->
@@ -305,6 +203,7 @@ import { mapActions, mapWritableState } from "pinia";
 import Header from "../../Shared/Header.vue";
 import NavbarArea from "../../CommonComponents/NavbarArea.vue";
 import SidebarWidgets from "./components/SidebarComponentSet/SidebarWidgets.vue";
+import DonationForm from "./components/SidebarComponentSet/DonationForm.vue";
 import MoreDonationProgramsSection from "../../GlobalComponent/MoreDonationProgramsSection.vue";
 import { store as donation_details_store } from "./Store/donation_details_store.js";
 
@@ -317,6 +216,7 @@ export default {
     SidebarWidgets,
     MoreDonationProgramsSection,
     Header,
+    DonationForm
   },
   data() {
     return {

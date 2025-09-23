@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Modules\Management\DonationDetailsManagement\DonationDetails\Validations;
+namespace App\Modules\Management\Donation\Validations;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Validation\Rule;
 
-class DataStoreValidation extends FormRequest
+class BulkActionsValidation extends FormRequest
 {
     /**
      * Determine if the  is authorized to make this request.
@@ -42,15 +42,15 @@ class DataStoreValidation extends FormRequest
     public function rules(): array
     {
         return [
-            'author' => 'required | sometimes',
-            'date' => 'required | sometimes',
-            'title' => 'required | sometimes',
-            'content' => 'required | sometimes',
-            'target' => 'required | sometimes',
-            'achived' => 'required | sometimes',
-            'banner_image' => 'required | sometimes',
-            'amount_details' => 'nullable',
-            'status' => ['sometimes', Rule::in(['active', 'inactive'])],
+            'action' => 'required|sometimes|in:active,inactive,soft_delete,restore,destroy',
+            'ids' => [
+                'array',
+                function ($attribute, $value, $fail) {
+                    if (empty($value)) {
+                        $fail('The ' . $attribute . ' must contain at least one item.');
+                    }
+                },
+            ],
         ];
     }
 }

@@ -196,22 +196,19 @@
                                         </div>
 
                                         <!-- Fax Number (Optional) -->
-                                        <div class="form-group row">
-                                            <label
-                                                class="col-lg-3 col-form-label form-control-label"
-                                                >Fax Number</label
-                                            >
-                                            <div class="col-lg-9">
-                                                <input
-                                                    name="fax_number"
-                                                    class="form-control"
-                                                    type="text"
-                                                    placeholder="Enter fax number (optional)"
-                                                    :value="`${get_setting_value(
-                                                        'fax_number'
-                                                    )}`"
-                                                />
-                                            </div>
+                                       <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label form-control-label"
+                                            >Short Intro</label
+                                        >
+                                        <div class="col-lg-9">
+                                            <input
+                                            name="short_intro"
+                                            class="form-control"
+                                            type="text"
+                                            placeholder="Enter fax number (optional)"
+                                            :value="`${get_setting_value('short_intro')}`"
+                                            />
+                                        </div>
                                         </div>
                                         <!-- Address -->
                                         <div class="form-group row">

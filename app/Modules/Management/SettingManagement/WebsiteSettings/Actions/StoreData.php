@@ -13,6 +13,7 @@ class StoreData
     {
         try {
             $requestData = request()->all(); // Get all request data
+            dd( $requestData);
             $responseData = [];
 
             foreach ($requestData as $title => $value) {

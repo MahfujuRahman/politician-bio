@@ -132,7 +132,7 @@
                                             <div class="col-lg-9">
                                                 <input name="bkash" class="form-control" type="text"
                                                     placeholder="Enter Bkash number"
-                                                    :value="`${get_payment_value('offline_payments.bkash')}`" />
+                                                    :value="`${get_setting_value('bkash')}`" />
                                             </div>
                                         </div>
 
@@ -143,7 +143,7 @@
                                             <div class="col-lg-9">
                                                 <input name="nagad" class="form-control" type="text"
                                                     placeholder="Enter Nagad number"
-                                                    :value="`${get_payment_value('nagad')}`" />
+                                                    :value="`${get_setting_value('nagad')}`" />
                                             </div>
                                         </div>
 
@@ -154,7 +154,7 @@
                                             <div class="col-lg-9">
                                                 <input name="rocket" class="form-control" type="text"
                                                     placeholder="Enter Rocket number"
-                                                    :value="`${get_payment_value('rocket')}`" />
+                                                    :value="`${get_setting_value('rocket')}`" />
                                             </div>
                                         </div>
 
@@ -165,7 +165,7 @@
                                             <div class="col-lg-9">
                                                 <input name="bank" class="form-control" type="text"
                                                     placeholder="Enter Bank account details"
-                                                    :value="`${get_payment_value('bank')}`" />
+                                                    :value="`${get_setting_value('bank')}`" />
                                             </div>
                                         </div>
 

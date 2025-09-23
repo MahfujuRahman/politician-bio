@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('state', 100)->nullable();
             $table->enum('payment_method', ['sslcommerze','offline'])->nullable();
             $table->float('amount')->nullable();
+            $table->enum('is_paid', ['yes','no'])->default('no');
 
             $table->bigInteger('creator')->unsigned()->nullable();
             $table->string('slug', 50)->nullable();

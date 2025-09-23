@@ -329,6 +329,14 @@ export default {
           alert('Success: ' + this.$page.props.flash.success);
         }
         return;
+      } else if (this.$page?.props?.flash?.error) {
+        console.log('Error message from Inertia flash:', this.$page.props.flash.error);
+        if (window.s_alert) {
+          window.s_alert(this.$page.props.flash.error, 'error');
+        } else {
+          alert('Error: ' + this.$page.props.flash.error);
+        }
+        return;
       }
 
       // Method 2: Check for success parameter in URL

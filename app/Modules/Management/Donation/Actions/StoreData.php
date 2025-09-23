@@ -11,18 +11,19 @@ class StoreData
         try {
             $requestData = $request->validated();
 
-            if ($data = self::$model::query()->create($requestData)) {
-                if ($requestData['payment_method'] == 'sslcommerze') {
-                    return redirect()->route(
-                        'payment.order',
-                        [
-                            'amount' => $requestData['amount'],
-                            'customer_name' => $requestData['first_name'] . ' ' . $requestData['last_name'],
-                            'customer_email' => $requestData['email'],
-                            'donation_details_slug' => $request->donation_details_slug,
-                        ]
-                    );
-                } else {
+            if ($requestData['payment_method'] == 'sslcommerze') {
+                return redirect()->route(
+                    'payment.order',
+                    [
+                        'amount' => $requestData['amount'],
+                        'customer_name' => $requestData['first_name'] . ' ' . $requestData['last_name'],
+                        'customer_email' => $requestData['email'],
+                        'donation_details_slug' => $request->donation_details_slug,
+                        'requestData' => $requestData,
+                    ]
+                );
+            } else {
+                if ($data = self::$model::query()->create($requestData)) {
                     return messageResponse('Item added successfully', $data, 201);
                 }
             }

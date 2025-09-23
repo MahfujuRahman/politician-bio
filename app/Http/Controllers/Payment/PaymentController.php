@@ -8,18 +8,31 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Gateways\SSLCommerz\SSLCommerz;
-use App\Modules\Management\CourseManagement\Course\Models\Model as Course;
-use App\Modules\Management\CourseManagement\CourseBatch\Models\Model as CourseBatches;
 
 class PaymentController extends Controller
 {
+    static $model = \App\Modules\Management\Donation\Models\Model::class;
+
     public function order()
     {
+
+        $requestData = request()->input('requestData');
+
+        // Generate a unique transaction ID
+        $trxId = time() . Str::random(5);
+
+        // Get donation slug if available
+        $donationSlug = request()->input('donation_details_slug', '');
+
+        // Store requestData in cache with trx_id as key (expires in 2 hours)
+        cache()->put('payment_data_' . $trxId, $requestData, now()->addHours(1));
+
         $sslc = new SSLCommerz();
         $sslc->amount(request()->input('amount'))
-            ->trxid(time() . Str::random(5))
+            ->trxid($trxId) // Use our generated trx_id
             ->product('Products From TechPark Politicians')
-            ->customer(request()->input('customer_name'), request()->input('customer_email'));
+            ->customer(request()->input('customer_name'), request()->input('customer_email'))
+            ->setExtras($donationSlug); // Only pass slug in value_a
 
         return $sslc->make_payment();
     }
@@ -27,12 +40,13 @@ class PaymentController extends Controller
 
     public function success(Request $request)
     {
-
         $trx_id = $request->tran_id;
-
         $subtotal = $request->store_amount ?? 0;
-        $total    = $request->amount ?? 0;
+        $total = $request->amount ?? 0;
         $donation_details_slug = $request->value_a;
+
+        // Retrieve requestData from cache using transaction ID
+        $requestData = cache()->get('payment_data_' . $trx_id);
 
         $validate = SSLCommerz::validate_payment($request);
 
@@ -42,17 +56,19 @@ class PaymentController extends Controller
 
                 $bankID = $request->bank_tran_id;
 
+                $data = self::$model::query()->create($requestData);
+
                 // Insert into orders
                 $orderId = DB::table('orders')->insertGetId([
                     'order_no'       => time() . rand(100, 999),
-                    'user_id'        => auth()->id(),
+                    'user_id'        => $data->id, // Use the ID from the created donation record
                     'order_date'     => now(),
                     'payment_method' => 1, // sslcommerz
                     'payment_status' => 1, // paid
                     'trx_id'         => $trx_id,
                     'sub_total'      => $subtotal,
                     'total'          => $total,
-                    'slug'           => Str::slug( Str::random(6))
+                    'slug'           => Str::slug(Str::random(6))
                 ]);
 
                 // Insert into order_payments
@@ -79,10 +95,12 @@ class PaymentController extends Controller
                 // ✅ If everything runs fine
                 DB::commit();
 
+                // Clean up cache
+                cache()->forget('payment_data_' . $trx_id);
+
                 $successMessage = 'You donated successfully!';
                 return redirect('donation/details?slug=' . $donation_details_slug . '&success=' . urlencode($successMessage))
                     ->with('success', $successMessage);
-
             } catch (\Exception $e) {
                 // ❌ If something fails, rollback
                 DB::rollBack();
@@ -95,22 +113,20 @@ class PaymentController extends Controller
 
     public function failure(Request $request)
     {
-        $auth = auth()->user();
-        $course_slug = $request->value_a;
+        $donation_details_slug = $request->value_a;
 
-        if (!$auth) {
-            $this->cancel($request);
-            return redirect('/login');
-        }
-
-        return redirect('course/enroll/' . $course_slug)->with('error', 'Payment failed! Please try again.');
+        $successMessage = 'Payment failed! Please try again.!';
+        return redirect('donation/details?slug=' . $donation_details_slug . '&error=' . urlencode($successMessage))
+            ->with('error', $successMessage);
     }
 
     public function cancel(Request $request)
     {
-        $course_slug = $request->value_a;
+         $donation_details_slug = $request->value_a;
 
-        return redirect('course/enroll/' . $course_slug)->with('error', 'Order Canceled! Please try again.');
+        $successMessage = 'Payment Cancelled! Please try again.!';
+        return redirect('donation/details?slug=' . $donation_details_slug . '&error=' . urlencode($successMessage))
+            ->with('error', $successMessage);
     }
 
     public function refund($bankID)

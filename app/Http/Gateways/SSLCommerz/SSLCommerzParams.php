@@ -169,7 +169,7 @@ class SSLCommerzParams extends SSLCommerzParamVars
         $this->vat = null;
         $this->discount_amount = null;
         $this->convenience_fee = null;
-        $this->value_a = request()->input('donation_details_slug');
+        $this->value_a = null;
         $this->value_b = null;
         $this->value_c = null;
         $this->value_d = null;

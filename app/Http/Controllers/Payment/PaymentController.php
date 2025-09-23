@@ -79,8 +79,9 @@ class PaymentController extends Controller
                 // ✅ If everything runs fine
                 DB::commit();
 
-                return redirect('donation/details?slug=' . $donation_details_slug)
-                ->with('success', 'You donated successfully!');
+                $successMessage = 'You donated successfully!';
+                return redirect('donation/details?slug=' . $donation_details_slug . '&success=' . urlencode($successMessage))
+                    ->with('success', $successMessage);
 
             } catch (\Exception $e) {
                 // ❌ If something fails, rollback

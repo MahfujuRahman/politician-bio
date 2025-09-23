@@ -26,14 +26,5 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::useBootstrap();
         // WarehouseProductOut::observe(WarehouseProductOutObserver::class);
-
-        Inertia::share([
-            'flash' => function () {
-                return [
-                    'success' => session('success'),
-                    'error' => session('error'),
-                ];
-            },
-        ]);
     }
 }

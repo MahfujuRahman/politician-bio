@@ -227,6 +227,13 @@ export default {
     };
   },
   created: async function () {
+    console.log("Details.vue created - checking for success message");
+    console.log("Page props:", this.$page?.props);
+    console.log("Flash data:", this.$page?.props?.flash);
+    
+    // Check for success message from Laravel redirect
+    this.checkForSuccessMessage();
+    
     const params = new URLSearchParams(window.location.search);
     this.slug = params.get("slug") || "";
     console.log("slug from detail created:before condition", this.slug);
@@ -307,6 +314,65 @@ export default {
   },
   methods: {
     ...mapActions(donation_details_store, ["fetch_donation_details"]),
+    checkForSuccessMessage() {
+      console.log("checkForSuccessMessage called");
+      console.log("this.$page:", this.$page);
+      console.log("this.$page.props:", this.$page?.props);
+      console.log("this.$page.props.flash:", this.$page?.props?.flash);
+      
+      // Method 1: Check for Laravel flash session in page props (Inertia)
+      if (this.$page?.props?.flash?.success) {
+        console.log('Success message from Inertia flash:', this.$page.props.flash.success);
+        if (window.s_alert) {
+          window.s_alert(this.$page.props.flash.success, 'success');
+        } else {
+          alert('Success: ' + this.$page.props.flash.success);
+        }
+        return;
+      }
+
+      // Method 2: Check for success parameter in URL
+      const params = new URLSearchParams(window.location.search);
+      const successParam = params.get('success');
+      if (successParam) {
+        console.log('Success message from URL parameter:', successParam);
+        if (window.s_alert) {
+          window.s_alert(decodeURIComponent(successParam), 'success');
+        } else {
+          alert('Success: ' + decodeURIComponent(successParam));
+        }
+        return;
+      }
+
+      // Method 3: Check for Laravel session flash in meta tag
+      const successMeta = document.querySelector('meta[name="flash-success"]');
+      if (successMeta) {
+        const message = successMeta.getAttribute('content');
+        console.log('Success message from meta tag:', message);
+        if (window.s_alert) {
+          window.s_alert(message, 'success');
+        } else {
+          alert('Success: ' + message);
+        }
+        successMeta.remove(); // Remove to prevent showing again
+        return;
+      }
+
+      // Method 4: Check localStorage (if backend sets it)
+      const storedSuccess = localStorage.getItem('donation_success');
+      if (storedSuccess) {
+        console.log('Success message from localStorage:', storedSuccess);
+        if (window.s_alert) {
+          window.s_alert(storedSuccess, 'success');
+        } else {
+          alert('Success: ' + storedSuccess);
+        }
+        localStorage.removeItem('donation_success'); // Remove after showing
+        return;
+      }
+
+      console.log('No success message found');
+    },
     initBannerLightbox() {
       if (window.$ && window.$.fn.magnificPopup) {
         window.$(".banner-lightbox").magnificPopup({

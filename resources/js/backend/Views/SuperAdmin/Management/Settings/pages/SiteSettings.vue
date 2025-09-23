@@ -10,596 +10,367 @@
                 <div class="card" id="site_settings">
                     <div class="card-body">
                         <div class="d-flex">
-                            <ul
-                                class="flex-column nav nav-tabs nav-tabs-primary top-icon nav-justified card"
-                            >
-                                <li
-                                    class="nav-item"
-                                    @click="tab = 'bassic_settings'"
-                                >
-                                    <a
-                                        :class="
-                                            tab == 'bassic_settings'
-                                                ? ' active'
-                                                : ''
-                                        "
-                                        href="javascript:void();"
-                                        data-target="#bassic_settings"
-                                        data-toggle="pill"
-                                        class="nav-link"
-                                        ><i class="icon-note"></i>
-                                        <span class="hidden-xs"
-                                            >Basic Settings</span
-                                        ></a
-                                    >
+                            <ul class="flex-column nav nav-tabs nav-tabs-primary top-icon nav-justified card">
+                                <li class="nav-item" @click="tab = 'bassic_settings'">
+                                    <a :class="tab == 'bassic_settings'
+                                            ? ' active'
+                                            : ''
+                                        " href="javascript:void();" data-target="#bassic_settings" data-toggle="pill"
+                                        class="nav-link"><i class="icon-note"></i>
+                                        <span class="hidden-xs">Basic Settings</span></a>
                                     <hr />
                                 </li>
-                                <li
-                                    class="nav-item"
-                                    @click="tab = 'seo_settings'"
-                                >
-                                    <a
-                                        :class="
-                                            tab == 'seo_settings'
-                                                ? 'active'
-                                                : ''
-                                        "
-                                        href="javascript:void();"
-                                        data-target="#seo_settings"
-                                        data-toggle="pill"
-                                        class="nav-link"
-                                        ><i class="icon-note"></i>
-                                        <span class="hidden-xs"
-                                            >SEO Settings</span
-                                        ></a
-                                    >
+                                <li class="nav-item" @click="tab = 'seo_settings'">
+                                    <a :class="tab == 'seo_settings'
+                                            ? 'active'
+                                            : ''
+                                        " href="javascript:void();" data-target="#seo_settings" data-toggle="pill"
+                                        class="nav-link"><i class="icon-note"></i>
+                                        <span class="hidden-xs">SEO Settings</span></a>
                                     <hr />
                                 </li>
 
-                                <li
-                                    class="nav-item"
-                                    @click="tab = 'social_link'"
-                                >
-                                    <a
-                                        :class="
-                                            tab == 'social_link'
-                                                ? ' active'
-                                                : ''
-                                        "
-                                        href="javascript:void();"
-                                        data-target="#social_link"
-                                        data-toggle="pill"
-                                        class="nav-link"
-                                        ><i class="icon-note"></i>
-                                        <span class="hidden-xs"
-                                            >Social Links information</span
-                                        ></a
-                                    >
+                                <li class="nav-item" @click="tab = 'social_link'">
+                                    <a :class="tab == 'social_link'
+                                            ? ' active'
+                                            : ''
+                                        " href="javascript:void();" data-target="#social_link" data-toggle="pill"
+                                        class="nav-link"><i class="icon-note"></i>
+                                        <span class="hidden-xs">Social Links information</span></a>
                                     <hr />
                                 </li>
                                 <li class="nav-item" @click="tab = 'smtp'">
-                                    <a
-                                        :class="tab == 'smtp' ? ' active' : ''"
-                                        href="javascript:void();"
-                                        data-target="#smtp"
-                                        data-toggle="pill"
-                                        class="nav-link"
-                                        ><i class="icon-note"></i>
-                                        <span class="hidden-xs"
-                                            >SMTP Settings</span
-                                        ></a
-                                    >
+                                    <a :class="tab == 'smtp' ? ' active' : ''" href="javascript:void();"
+                                        data-target="#smtp" data-toggle="pill" class="nav-link"><i
+                                            class="icon-note"></i>
+                                        <span class="hidden-xs">SMTP Settings</span></a>
                                     <hr />
                                 </li>
                                 <li class="nav-item" @click="tab = 'theme_color'">
-                                    <a
-                                        :class="tab == 'theme_color' ? ' active' : ''"
-                                        href="javascript:void();"
-                                        data-target="#theme_color"
-                                        data-toggle="pill"
-                                        class="nav-link"
-                                        ><i class="icon-note"></i>
-                                        <span class="hidden-xs"
-                                            >Theme Color Settings</span
-                                        ></a
-                                    >
+                                    <a :class="tab == 'theme_color' ? ' active' : ''" href="javascript:void();"
+                                        data-target="#theme_color" data-toggle="pill" class="nav-link"><i
+                                            class="icon-note"></i>
+                                        <span class="hidden-xs">Theme Color Settings</span></a>
                                     <hr />
                                 </li>
                             </ul>
                             <div class="ml-2 flex-grow-1 tab-content p-3 card">
-                                <div
-                                    v-if="tab == 'bassic_settings'"
-                                    :class="
-                                        tab == 'bassic_settings'
-                                            ? ' active'
-                                            : ''
-                                    "
-                                    class="tab-pane active"
-                                    id="bassic_settings"
-                                >
-                                    <form @submit.prevent="SiteSettingsHandler"
-                                        enctype="multipart/form-data"
-                                    >
+                                <div v-if="tab == 'bassic_settings'" :class="tab == 'bassic_settings'
+                                        ? ' active'
+                                        : ''
+                                    " class="tab-pane active" id="bassic_settings">
+                                    <form @submit.prevent="SiteSettingsHandler" enctype="multipart/form-data">
                                         <div class="form-group row">
-                                            <label
-                                                class="col-lg-3 col-form-label form-control-label"
-                                                >Site Name</label
-                                            >
+                                            <label class="col-lg-3 col-form-label form-control-label">Site Name</label>
                                             <div class="col-lg-9">
-                                                <input
-                                                    name="site_name"
-                                                    class="form-control"
-                                                    type="text"
-                                                    :value="`${get_setting_value(
-                                                        'site_name'
-                                                    )}`"
-                                                    placeholder="Enter site name"
-                                                />
+                                                <input name="site_name" class="form-control" type="text" :value="`${get_setting_value(
+                                                    'site_name'
+                                                )}`" placeholder="Enter site name" />
                                             </div>
                                         </div>
 
                                         <!-- Email -->
                                         <div class="form-group row">
-                                            <label
-                                                class="col-lg-3 col-form-label form-control-label"
-                                                >Email</label
-                                            >
+                                            <label class="col-lg-3 col-form-label form-control-label">Email</label>
                                             <div class="col-lg-9">
-                                                <input
-                                                    name="email"
-                                                    class="form-control"
-                                                    type="email"
-                                                    placeholder="Enter email address"
-                                                    :value="`${get_setting_value(
+                                                <input name="email" class="form-control" type="email"
+                                                    placeholder="Enter email address" :value="`${get_setting_value(
                                                         'email'
-                                                    )}`"
-                                                />
+                                                    )}`" />
                                             </div>
                                         </div>
 
                                         <!-- Phone Number -->
                                         <div class="form-group row">
-                                            <label
-                                                class="col-lg-3 col-form-label form-control-label"
-                                                >Phone Number</label
-                                            >
+                                            <label class="col-lg-3 col-form-label form-control-label">Phone
+                                                Number</label>
                                             <div class="col-lg-9">
-                                                <input
-                                                    name="phone_number"
-                                                    class="form-control"
-                                                    type="text"
-                                                    placeholder="Enter phone number"
-                                                    :value="`${get_setting_value(
+                                                <input name="phone_number" class="form-control" type="text"
+                                                    placeholder="Enter phone number" :value="`${get_setting_value(
                                                         'phone_numbers'
-                                                    )}`"
-                                                />
+                                                    )}`" />
                                             </div>
                                         </div>
 
                                         <!-- Website -->
                                         <div class="form-group row">
-                                            <label
-                                                class="col-lg-3 col-form-label form-control-label"
-                                                >Website</label
-                                            >
+                                            <label class="col-lg-3 col-form-label form-control-label">Website</label>
                                             <div class="col-lg-9">
-                                                <input
-                                                    name="website"
-                                                    class="form-control"
-                                                    type="text"
-                                                    placeholder="Enter company website"
-                                                    :value="`${get_setting_value(
+                                                <input name="website" class="form-control" type="text"
+                                                    placeholder="Enter company website" :value="`${get_setting_value(
                                                         'website'
-                                                    )}`"
-                                                />
+                                                    )}`" />
                                             </div>
                                         </div>
 
                                         <!-- Fax Number (Optional) -->
-                                       <div class="form-group row">
-                                        <label class="col-lg-3 col-form-label form-control-label"
-                                            >Short Intro</label
-                                        >
-                                        <div class="col-lg-9">
-                                            <input
-                                            name="short_intro"
-                                            class="form-control"
-                                            type="text"
-                                            placeholder="Enter fax number (optional)"
-                                            :value="`${get_setting_value('short_intro')}`"
-                                            />
+                                        <div class="form-group row">
+                                            <label class="col-lg-3 col-form-label form-control-label">Short
+                                                Intro</label>
+                                            <div class="col-lg-9">
+                                                <input name="short_intro" class="form-control" type="text"
+                                                    placeholder="Enter fax number (optional)"
+                                                    :value="`${get_setting_value('short_intro')}`" />
+                                            </div>
                                         </div>
-                                        </div>
+
                                         <!-- Address -->
                                         <div class="form-group row">
-                                            <label
-                                                class="col-lg-3 col-form-label form-control-label"
-                                                >Address</label
-                                            >
+                                            <label class="col-lg-3 col-form-label form-control-label">Address</label>
                                             <div class="col-lg-9">
-                                                <textarea
-                                                    name="address"
-                                                    class="form-control"
-                                                    rows="3"
-                                                    placeholder="Enter company address"
-                                                    :value="`${get_setting_value(
+                                                <textarea name="address" class="form-control" rows="3"
+                                                    placeholder="Enter company address" :value="`${get_setting_value(
                                                         'address'
-                                                    )}`"
-                                                ></textarea>
+                                                    )}`"></textarea>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Bkash -->
+                                        <div class="form-group row">
+                                            <label class="col-lg-3 col-form-label form-control-label">
+                                                Bkash</label>
+                                            <div class="col-lg-9">
+                                                <input name="bkash" class="form-control" type="text"
+                                                    placeholder="Enter Bkash number"
+                                                    :value="`${get_payment_value('offline_payments.bkash')}`" />
+                                            </div>
+                                        </div>
+
+                                        <!-- Nagad -->
+                                        <div class="form-group row">
+                                            <label class="col-lg-3 col-form-label form-control-label">
+                                                Nagad</label>
+                                            <div class="col-lg-9">
+                                                <input name="nagad" class="form-control" type="text"
+                                                    placeholder="Enter Nagad number"
+                                                    :value="`${get_payment_value('nagad')}`" />
+                                            </div>
+                                        </div>
+
+                                        <!-- Rocket -->
+                                        <div class="form-group row">
+                                            <label class="col-lg-3 col-form-label form-control-label">
+                                                Rocket</label>
+                                            <div class="col-lg-9">
+                                                <input name="rocket" class="form-control" type="text"
+                                                    placeholder="Enter Rocket number"
+                                                    :value="`${get_payment_value('rocket')}`" />
+                                            </div>
+                                        </div>
+
+                                        <!-- Bank -->
+                                        <div class="form-group row">
+                                            <label class="col-lg-3 col-form-label form-control-label">
+                                                Bank Account</label>
+                                            <div class="col-lg-9">
+                                                <input name="bank" class="form-control" type="text"
+                                                    placeholder="Enter Bank account details"
+                                                    :value="`${get_payment_value('bank')}`" />
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
-                                            <label
-                                                class="col-lg-3 col-form-label form-control-label"
-                                                >Footer Logo</label
-                                            >
+                                            <label class="col-lg-3 col-form-label form-control-label">Footer
+                                                Logo</label>
                                             <div class="col-lg-9">
-                                                <input
-                                                    class="form-control"
-                                                    name="footer_logo"
-                                                    type="file"
-                                                />
-                                                <img
-                                                    v-if="auth_info.image"
-                                                    class="mt-2 object_fit_contain"
-                                                    :src="`${get_setting_value(
-                                                        'footer_logo'
-                                                    )}`"
-                                                    height="100"
-                                                    width="100"
-                                                    alt=""
-                                                />
+                                                <input class="form-control" name="footer_logo" type="file" />
+                                                <img v-if="auth_info.image" class="mt-2 object_fit_contain" :src="`${get_setting_value(
+                                                    'footer_logo'
+                                                )}`" height="100" width="100" alt="" />
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
-                                            <label
-                                                class="col-lg-3 col-form-label form-control-label"
-                                                >Header Logo</label
-                                            >
+                                            <label class="col-lg-3 col-form-label form-control-label">Header
+                                                Logo</label>
                                             <div class="col-lg-9">
-                                                <input
-                                                    class="form-control"
-                                                    name="header_logo"
-                                                    type="file"
-                                                />
-                                                <img
-                                                    v-if="auth_info.image"
-                                                    class="mt-2 object_fit_contain"
-                                                    :src="`${get_setting_value(
-                                                        'header_logo'
-                                                    )}`"
-                                                    height="100"
-                                                    width="100"
-                                                    alt=""
-                                                    
-                                                />
+                                                <input class="form-control" name="header_logo" type="file" />
+                                                <img v-if="auth_info.image" class="mt-2 object_fit_contain" :src="`${get_setting_value(
+                                                    'header_logo'
+                                                )}`" height="100" width="100" alt="" />
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
-                                            <label
-                                                class="col-lg-3 col-form-label form-control-label"
-                                            ></label>
+                                            <label class="col-lg-3 col-form-label form-control-label"></label>
                                             <div class="col-lg-9">
-                                                <input
-                                                    type="submit"
-                                                    class="btn btn-primary"
-                                                    value="Save Changes"
-                                                />
+                                                <input type="submit" class="btn btn-primary" value="Save Changes" />
                                             </div>
                                         </div>
                                     </form>
                                 </div>
 
-                                <div
-                                    v-if="tab == 'seo_settings'"
-                                    :class="
-                                        tab == 'seo_settings' ? ' active' : ''
-                                    "
-                                    class="tab-pane"
-                                    id="seo_settings"
-                                >
+                                <div v-if="tab == 'seo_settings'" :class="tab == 'seo_settings' ? ' active' : ''
+                                    " class="tab-pane" id="seo_settings">
                                     <form @submit.prevent="SiteSettingsHandler">
                                         <!-- Meta Title -->
                                         <div class="form-group row">
-                                            <label
-                                                class="col-lg-3 col-form-label form-control-label"
-                                                >Meta Title</label
-                                            >
+                                            <label class="col-lg-3 col-form-label form-control-label">Meta Title</label>
                                             <div class="col-lg-9">
-                                                <input
-                                                    name="meta_title"
-                                                    class="form-control"
-                                                    type="text"
-                                                    placeholder="Enter meta title"
-                                                    :value="`${get_setting_value(
+                                                <input name="meta_title" class="form-control" type="text"
+                                                    placeholder="Enter meta title" :value="`${get_setting_value(
                                                         'meta_title'
-                                                    )}`"
-                                                />
+                                                    )}`" />
                                             </div>
                                         </div>
 
                                         <!-- Meta Description -->
                                         <div class="form-group row">
-                                            <label
-                                                class="col-lg-3 col-form-label form-control-label"
-                                                >Meta Description</label
-                                            >
+                                            <label class="col-lg-3 col-form-label form-control-label">Meta
+                                                Description</label>
                                             <div class="col-lg-9">
-                                                <textarea
-                                                    name="meta_description"
-                                                    class="form-control"
-                                                    rows="3"
-                                                    placeholder="Enter meta description"
-                                                    :value="`${get_setting_value(
+                                                <textarea name="meta_description" class="form-control" rows="3"
+                                                    placeholder="Enter meta description" :value="`${get_setting_value(
                                                         'meta_description'
-                                                    )}`"
-                                                >
+                                                    )}`">
                                                 </textarea>
                                             </div>
                                         </div>
 
                                         <!-- Meta Keywords -->
                                         <div class="form-group row">
-                                            <label
-                                                class="col-lg-3 col-form-label form-control-label"
-                                                >Meta Keywords</label
-                                            >
+                                            <label class="col-lg-3 col-form-label form-control-label">Meta
+                                                Keywords</label>
                                             <div class="col-lg-9">
-                                                <input
-                                                    name="meta_keywords"
-                                                    class="form-control"
-                                                    type="text"
-                                                    placeholder="Enter meta keywords (comma-separated)"
-                                                    :value="`${get_setting_value(
+                                                <input name="meta_keywords" class="form-control" type="text"
+                                                    placeholder="Enter meta keywords (comma-separated)" :value="`${get_setting_value(
                                                         'meta_keywords'
-                                                    )}`"
-                                                />
+                                                    )}`" />
                                             </div>
                                         </div>
 
                                         <!-- Canonical URL -->
                                         <div class="form-group row">
-                                            <label
-                                                class="col-lg-3 col-form-label form-control-label"
-                                                >Canonical URL</label
-                                            >
+                                            <label class="col-lg-3 col-form-label form-control-label">Canonical
+                                                URL</label>
                                             <div class="col-lg-9">
-                                                <input
-                                                    name="canonical_url"
-                                                    class="form-control"
-                                                    type="text"
-                                                    placeholder="Enter canonical URL"
-                                                    :value="`${get_setting_value(
+                                                <input name="canonical_url" class="form-control" type="text"
+                                                    placeholder="Enter canonical URL" :value="`${get_setting_value(
                                                         'canonical_url'
-                                                    )}`"
-                                                />
+                                                    )}`" />
                                             </div>
                                         </div>
 
                                         <!-- Submit Button -->
                                         <div class="form-group row">
-                                            <label
-                                                class="col-lg-3 col-form-label form-control-label"
-                                            ></label>
+                                            <label class="col-lg-3 col-form-label form-control-label"></label>
                                             <div class="col-lg-9">
-                                                <input
-                                                    type="submit"
-                                                    class="btn btn-primary"
-                                                    value="Save Changes"
-                                                />
+                                                <input type="submit" class="btn btn-primary" value="Save Changes" />
                                             </div>
                                         </div>
                                     </form>
                                 </div>
 
-                                <div
-                                    v-if="tab == 'social_link'"
-                                    :class="
-                                        tab == 'social_link' ? ' active' : ''
-                                    "
-                                    class="tab-pane"
-                                    id="social_link"
-                                >
+                                <div v-if="tab == 'social_link'" :class="tab == 'social_link' ? ' active' : ''
+                                    " class="tab-pane" id="social_link">
                                     <form @submit.prevent="SiteSettingsHandler">
                                         <!-- Facebook -->
                                         <div class="form-group row">
-                                            <label
-                                                class="col-lg-3 col-form-label form-control-label"
-                                                >Facebook</label
-                                            >
+                                            <label class="col-lg-3 col-form-label form-control-label">Facebook</label>
                                             <div class="col-lg-9">
-                                                <input
-                                                    name="facebook"
-                                                    class="form-control"
-                                                    type="text"
-                                                    placeholder="https://facebook.com/yourpage"
-                                                    :value="`${get_setting_value(
+                                                <input name="facebook" class="form-control" type="text"
+                                                    placeholder="https://facebook.com/yourpage" :value="`${get_setting_value(
                                                         'facebook'
-                                                    )}`"
-                                                />
+                                                    )}`" />
                                             </div>
                                         </div>
                                         <!-- Twitter -->
                                         <div class="form-group row">
-                                            <label
-                                                class="col-lg-3 col-form-label form-control-label"
-                                                >Twitter</label
-                                            >
+                                            <label class="col-lg-3 col-form-label form-control-label">Twitter</label>
                                             <div class="col-lg-9">
-                                                <input
-                                                    name="twitter"
-                                                    class="form-control"
-                                                    type="text"
-                                                    placeholder="https://twitter.com/yourprofile"
-                                                    :value="`${get_setting_value(
+                                                <input name="twitter" class="form-control" type="text"
+                                                    placeholder="https://twitter.com/yourprofile" :value="`${get_setting_value(
                                                         'twitter'
-                                                    )}`"
-                                                />
+                                                    )}`" />
                                             </div>
                                         </div>
                                         <!-- Instagram -->
                                         <div class="form-group row">
-                                            <label
-                                                class="col-lg-3 col-form-label form-control-label"
-                                                >Instagram</label
-                                            >
+                                            <label class="col-lg-3 col-form-label form-control-label">Instagram</label>
                                             <div class="col-lg-9">
-                                                <input
-                                                    name="instagram"
-                                                    class="form-control"
-                                                    type="text"
-                                                    placeholder="https://instagram.com/yourprofile"
-                                                    :value="`${get_setting_value(
+                                                <input name="instagram" class="form-control" type="text"
+                                                    placeholder="https://instagram.com/yourprofile" :value="`${get_setting_value(
                                                         'instagram'
-                                                    )}`"
-                                                />
+                                                    )}`" />
                                             </div>
                                         </div>
                                         <!-- LinkedIn -->
                                         <div class="form-group row">
-                                            <label
-                                                class="col-lg-3 col-form-label form-control-label"
-                                                >LinkedIn</label
-                                            >
+                                            <label class="col-lg-3 col-form-label form-control-label">LinkedIn</label>
                                             <div class="col-lg-9">
-                                                <input
-                                                    name="linkedin"
-                                                    class="form-control"
-                                                    type="text"
-                                                    placeholder="https://linkedin.com/in/yourprofile"
-                                                    :value="`${get_setting_value(
+                                                <input name="linkedin" class="form-control" type="text"
+                                                    placeholder="https://linkedin.com/in/yourprofile" :value="`${get_setting_value(
                                                         'linkedin'
-                                                    )}`"
-                                                />
+                                                    )}`" />
                                             </div>
                                         </div>
                                         <!-- YouTube -->
                                         <div class="form-group row">
-                                            <label
-                                                class="col-lg-3 col-form-label form-control-label"
-                                                >YouTube</label
-                                            >
+                                            <label class="col-lg-3 col-form-label form-control-label">YouTube</label>
                                             <div class="col-lg-9">
-                                                <input
-                                                    name="youtube"
-                                                    class="form-control"
-                                                    type="text"
-                                                    placeholder="https://youtube.com/yourchannel"
-                                                    :value="`${get_setting_value(
+                                                <input name="youtube" class="form-control" type="text"
+                                                    placeholder="https://youtube.com/yourchannel" :value="`${get_setting_value(
                                                         'youtube'
-                                                    )}`"
-                                                />
+                                                    )}`" />
                                             </div>
                                         </div>
                                         <!-- Save Button -->
                                         <div class="form-group row">
-                                            <label
-                                                class="col-lg-3 col-form-label form-control-label"
-                                            ></label>
+                                            <label class="col-lg-3 col-form-label form-control-label"></label>
                                             <div class="col-lg-9">
-                                                <input
-                                                    type="submit"
-                                                    class="btn btn-primary"
-                                                    value="Save Changes"
-                                                />
+                                                <input type="submit" class="btn btn-primary" value="Save Changes" />
                                             </div>
                                         </div>
                                     </form>
                                 </div>
-                                <div
-                                    v-if="tab == 'smtp'"
-                                    :class="tab == 'smtp' ? ' active' : ''"
-                                    class="tab-pane"
-                                    id="smtp"
-                                >
+                                <div v-if="tab == 'smtp'" :class="tab == 'smtp' ? ' active' : ''" class="tab-pane"
+                                    id="smtp">
                                     <form @submit.prevent="SiteSettingsHandler">
                                         <div class="form-group row">
-                                            <label
-                                                class="col-lg-3 col-form-label form-control-label"
-                                                >Host</label
-                                            >
+                                            <label class="col-lg-3 col-form-label form-control-label">Host</label>
                                             <div class="col-lg-9">
-                                                <input
-                                                    name="mail_host"
-                                                    class="form-control"
-                                                    type="text"
-                                                    placeholder="mail.example.com"
-                                                    :value="`${get_setting_value(
+                                                <input name="mail_host" class="form-control" type="text"
+                                                    placeholder="mail.example.com" :value="`${get_setting_value(
                                                         'mail_host'
-                                                    )}`"
-                                                />
+                                                    )}`" />
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
-                                            <label
-                                                class="col-lg-3 col-form-label form-control-label"
-                                                >Port</label
-                                            >
+                                            <label class="col-lg-3 col-form-label form-control-label">Port</label>
                                             <div class="col-lg-9">
-                                                <input
-                                                    name="mail_port"
-                                                    class="form-control"
-                                                    type="text"
-                                                    placeholder="465"
-                                                    :value="`${get_setting_value(
+                                                <input name="mail_port" class="form-control" type="text"
+                                                    placeholder="465" :value="`${get_setting_value(
                                                         'mail_port'
-                                                    )}`"
-                                                />
+                                                    )}`" />
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
-                                            <label
-                                                class="col-lg-3 col-form-label form-control-label"
-                                                >Username</label
-                                            >
+                                            <label class="col-lg-3 col-form-label form-control-label">Username</label>
                                             <div class="col-lg-9">
-                                                <input
-                                                    name="mail_username"
-                                                    class="form-control"
-                                                    type="text"
-                                                    placeholder="mainaccount@example.com"
-                                                    :value="`${get_setting_value(
+                                                <input name="mail_username" class="form-control" type="text"
+                                                    placeholder="mainaccount@example.com" :value="`${get_setting_value(
                                                         'mail_username'
-                                                    )}`"
-                                                />
+                                                    )}`" />
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
-                                            <label
-                                                class="col-lg-3 col-form-label form-control-label"
-                                                >Password</label
-                                            >
+                                            <label class="col-lg-3 col-form-label form-control-label">Password</label>
                                             <div class="col-lg-9">
-                                                <input
-                                                    name="mail_password"
-                                                    class="form-control"
-                                                    type="text"
-                                                    placeholder="*********"
-                                                    :value="`${get_setting_value(
+                                                <input name="mail_password" class="form-control" type="text"
+                                                    placeholder="*********" :value="`${get_setting_value(
                                                         'mail_password'
-                                                    )}`"
-                                                />
+                                                    )}`" />
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label
-                                                class="col-lg-3 col-form-label form-control-label"
-                                                >Encryption</label
-                                            >
+                                            <label class="col-lg-3 col-form-label form-control-label">Encryption</label>
                                             <div class="col-lg-9">
-                                                <select
-                                                    name="mail_encryption"
-                                                    class="form-control"
-                                                    :value="`${get_setting_value(
-                                                        'mail_encryption'
-                                                    )}`"
-                                                >
+                                                <select name="mail_encryption" class="form-control" :value="`${get_setting_value(
+                                                    'mail_encryption'
+                                                )}`">
                                                     <option value="ssl">
                                                         SSL
                                                     </option>
@@ -611,129 +382,78 @@
                                         </div>
                                         <!-- Save Button -->
                                         <div class="form-group row">
-                                            <label
-                                                class="col-lg-3 col-form-label form-control-label"
-                                            ></label>
+                                            <label class="col-lg-3 col-form-label form-control-label"></label>
                                             <div class="col-lg-9">
-                                                <input
-                                                    type="submit"
-                                                    class="btn btn-primary"
-                                                    value="Save Details"
-                                                />
+                                                <input type="submit" class="btn btn-primary" value="Save Details" />
                                             </div>
                                         </div>
                                     </form>
                                 </div>
 
-                                <div
-                                    v-if="tab == 'theme_color'"
-                                    :class="tab == 'theme_color' ? ' active' : ''"
-                                    class="tab-pane"
-                                    id="theme_color"
-                                >
+                                <div v-if="tab == 'theme_color'" :class="tab == 'theme_color' ? ' active' : ''"
+                                    class="tab-pane" id="theme_color">
                                     <form @submit.prevent="SiteSettingsHandler">
                                         <div class="form-group row">
-                                            <label
-                                                class="col-lg-3 col-form-label form-control-label"
-                                                >Main colore One</label
-                                            >
+                                            <label class="col-lg-3 col-form-label form-control-label">Main colore
+                                                One</label>
                                             <div class="col-lg-9">
-                                                <input
-                                                    name="main_color_one"
-                                                    class="form-control"
-                                                    type="color"
-                                                    placeholder="Enter main color one"
-                                                    :value="`${get_setting_value(
+                                                <input name="main_color_one" class="form-control" type="color"
+                                                    placeholder="Enter main color one" :value="`${get_setting_value(
                                                         'main_color_one'
-                                                    )}`"
-                                                />
+                                                    )}`" />
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
-                                            <label
-                                                class="col-lg-3 col-form-label form-control-label"
-                                                >Main Color Two</label
-                                            >
+                                            <label class="col-lg-3 col-form-label form-control-label">Main Color
+                                                Two</label>
                                             <div class="col-lg-9">
-                                                <input
-                                                    name="main_color_two"
-                                                    class="form-control"
-                                                    type="color"
-                                                    placeholder="Enter main color two"
-                                                    :value="`${get_setting_value(
+                                                <input name="main_color_two" class="form-control" type="color"
+                                                    placeholder="Enter main color two" :value="`${get_setting_value(
                                                         'main_color_two'
-                                                    )}`"
-                                                />
+                                                    )}`" />
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label
-                                                class="col-lg-3 col-form-label form-control-label"
-                                                >Secondary Color</label
-                                            >
+                                            <label class="col-lg-3 col-form-label form-control-label">Secondary
+                                                Color</label>
                                             <div class="col-lg-9">
-                                                <input
-                                                    name="secondary_color"
-                                                    class="form-control"
-                                                    type="color"
-                                                    placeholder="Enter secondary color"
-                                                    :value="`${get_setting_value(
+                                                <input name="secondary_color" class="form-control" type="color"
+                                                    placeholder="Enter secondary color" :value="`${get_setting_value(
                                                         'secondary_color'
-                                                    )}`"
-                                                />
+                                                    )}`" />
                                             </div>
                                         </div>
 
 
                                         <div class="form-group row">
-                                            <label
-                                                class="col-lg-3 col-form-label form-control-label"
-                                                >Heading Color</label
-                                            >
+                                            <label class="col-lg-3 col-form-label form-control-label">Heading
+                                                Color</label>
                                             <div class="col-lg-9">
-                                                <input
-                                                    name="heading_color"
-                                                    class="form-control"
-                                                    type="color"
-                                                    placeholder="Enter heading color"
-                                                    :value="`${get_setting_value(
+                                                <input name="heading_color" class="form-control" type="color"
+                                                    placeholder="Enter heading color" :value="`${get_setting_value(
                                                         'heading_color'
-                                                    )}`"
-                                                />
+                                                    )}`" />
                                             </div>
                                         </div>
 
 
                                         <div class="form-group row">
-                                            <label
-                                                class="col-lg-3 col-form-label form-control-label"
-                                                >Paragraph Color</label
-                                            >
+                                            <label class="col-lg-3 col-form-label form-control-label">Paragraph
+                                                Color</label>
                                             <div class="col-lg-9">
-                                                <input
-                                                    name="paragraph_color"
-                                                    class="form-control"
-                                                    type="color"
-                                                    placeholder="Enter paragraph color"
-                                                    :value="`${get_setting_value(
+                                                <input name="paragraph_color" class="form-control" type="color"
+                                                    placeholder="Enter paragraph color" :value="`${get_setting_value(
                                                         'paragraph_color'
-                                                    )}`"
-                                                />
+                                                    )}`" />
                                             </div>
                                         </div>
 
                                         <!-- Save Button -->
                                         <div class="form-group row">
-                                            <label
-                                                class="col-lg-3 col-form-label form-control-label"
-                                            ></label>
+                                            <label class="col-lg-3 col-form-label form-control-label"></label>
                                             <div class="col-lg-9">
-                                                <input
-                                                    type="submit"
-                                                    class="btn btn-primary"
-                                                    value="Save Details"
-                                                />
+                                                <input type="submit" class="btn btn-primary" value="Save Details" />
                                             </div>
                                         </div>
                                     </form>
@@ -765,6 +485,26 @@ export default {
             get_all_website_settings: "get_all_website_settings",
             get_setting_value: "get_setting_value",
         }),
+        get_payment_value(key) {
+            // Find the setting item (like 'offline_payments')
+            const setting = this.website_settings_data.find(
+                (item) => item.title === 'offline_payments' || item.title === key
+            );
+            
+            if (!setting?.setting_values) {
+                return "";
+            }
+            
+            // If key contains a dot (like 'offline_payments.bkash'), extract the payment method name
+            const paymentMethod = key.includes('.') ? key.split('.').pop() : key;
+            
+            // Find the specific payment method in setting_values array
+            const paymentValue = setting.setting_values.find(
+                (value) => value.name === paymentMethod || value.title === paymentMethod
+            );
+            
+            return paymentValue?.value || "";
+        },
         SiteSettingsHandler: async function () {
             let formData = new FormData(event.target);
             let response = await axios.post("website-settings/store", formData);

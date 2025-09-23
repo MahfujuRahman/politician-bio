@@ -79,6 +79,12 @@
                                     required>
                             </div>
                         </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input type="text" v-model="formData.trx_id" placeholder="Transaction ID*" class="form-control"
+                                    required>
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -163,7 +169,7 @@ export default {
     
     methods: {
         getAmountText(amt) {
-            return `$${amt}`;
+            return `${amt}`;
         },
         setAmount(amount) {
             this.formData.amount = amount;
@@ -271,6 +277,7 @@ export default {
                 address_2: '',
                 city: '',
                 state: '',
+                trx_id: '',
                 payment_method: 'sslcommerze'
             };
         }

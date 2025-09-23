@@ -56,6 +56,9 @@ class PaymentController extends Controller
 
                 $bankID = $request->bank_tran_id;
 
+                $requestData['is_paid'] = 'yes';
+                $requestData['trx_id'] = $trx_id;
+
                 $data = self::$model::query()->create($requestData);
 
                 // Insert into orders

@@ -2,6 +2,8 @@
 
 namespace App\Modules\Management\Donation\Actions;
 
+use Illuminate\Support\Str;
+
 class StoreData
 {
     static $model = \App\Modules\Management\Donation\Models\Model::class;
@@ -11,6 +13,9 @@ class StoreData
         try {
             $requestData = $request->validated();
 
+            $trxId = time() . Str::random(5);
+            $requestData['trx_id'] = $trxId;
+            
             if ($requestData['payment_method'] == 'sslcommerze') {
                 return redirect()->route(
                     'payment.order',

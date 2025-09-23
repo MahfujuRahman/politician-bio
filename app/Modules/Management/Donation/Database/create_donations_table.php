@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('address_2', 100)->nullable();
             $table->string('city', 100)->nullable();
             $table->string('state', 100)->nullable();
+            $table->string('trx_id', 255)->nullable();
             $table->enum('payment_method', ['sslcommerze','offline'])->nullable();
             $table->float('amount')->nullable();
             $table->enum('is_paid', ['yes','no'])->default('no');

@@ -183,7 +183,7 @@
           </div>
         </div>
         
-        <donation-form></donation-form>
+        <donation-form :amount="amount"></donation-form>
 
         <!-- <div class="col-lg-4">
           <SidebarWidgets />
@@ -223,6 +223,7 @@ export default {
       slug: "",
       raised: 0,
       goal: 0,
+      amount: 0,
     };
   },
   created: async function () {
@@ -237,6 +238,7 @@ export default {
       console.log("donation_details after fetch:", this.donation_details);
       this.raised = this.donation_details?.data?.achived || 0;
       this.goal = this.donation_details?.data?.target || 0;
+      this.amount = this.donation_details?.data?.amount_details || 0;
     }
   },
   methods: {

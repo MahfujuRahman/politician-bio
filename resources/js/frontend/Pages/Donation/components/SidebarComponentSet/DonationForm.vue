@@ -15,35 +15,13 @@
                     </div>
                     <div class="amount">
                         <div class="btn-wrapper">
-                            <span 
-                                class="price-btn" 
-                                :class="{ 'active': formData.amount === 25 }"
-                                @click="setAmount(25)"
-                            >25</span>
-                            <span 
-                                class="price-btn" 
-                                :class="{ 'active': formData.amount === 50 }"
-                                @click="setAmount(50)"
-                            >50</span>
-                            <span 
-                                class="price-btn" 
-                                :class="{ 'active': formData.amount === 100 }"
-                                @click="setAmount(100)"
-                            >100</span>
-                            <span 
-                                class="price-btn" 
-                                :class="{ 'active': formData.amount === 200 }"
-                                @click="setAmount(200)"
-                            >200</span>
+                            <span v-for="amt in amountOptions" :key="amt" class="price-btn"
+                                :class="{ 'active': formData.amount == amt }" @click="setAmount(amt)"
+                                v-text="getAmountText(amt)"></span>
                         </div>
-                        <div class="form-group">
-                            <input 
-                                type="number" 
-                                v-model="formData.amount" 
-                                placeholder="Custom amount" 
-                                class="form-control"
-                                required
-                            >
+                        <div class="form-group mt-2">
+                            <input type="number" v-model="formData.amount" placeholder="Custom amount"
+                                class="form-control" required>
                         </div>
                     </div>
                 </div>
@@ -54,89 +32,50 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <input 
-                                    type="text" 
-                                    v-model="formData.first_name" 
-                                    placeholder="First Name" 
-                                    class="form-control"
-                                    required
-                                >
+                                <input type="text" v-model="formData.first_name" placeholder="First Name"
+                                    class="form-control" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <input 
-                                    type="text" 
-                                    v-model="formData.last_name" 
-                                    placeholder="Last Name" 
-                                    class="form-control" 
-                                    required
-                                >
+                                <input type="text" v-model="formData.last_name" placeholder="Last Name"
+                                    class="form-control" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <input 
-                                    type="email" 
-                                    v-model="formData.email" 
-                                    class="form-control" 
-                                    placeholder="Email" 
-                                    required
-                                >
+                                <input type="email" v-model="formData.email" class="form-control" placeholder="Email"
+                                    required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <input 
-                                    type="text" 
-                                    v-model="formData.number" 
-                                    placeholder="Phone Number" 
-                                    class="form-control"
-                                    required
-                                >
+                                <input type="text" v-model="formData.number" placeholder="Phone Number"
+                                    class="form-control" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <input 
-                                    type="text" 
-                                    v-model="formData.address_1" 
-                                    placeholder="Address line 1" 
-                                    class="form-control"
-                                    required
-                                >
+                                <input type="text" v-model="formData.address_1" placeholder="Address line 1"
+                                    class="form-control" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <input 
-                                    type="text" 
-                                    v-model="formData.address_2" 
-                                    placeholder="Address line 2" 
-                                    class="form-control"
-                                >
+                                <input type="text" v-model="formData.address_2" placeholder="Address line 2"
+                                    class="form-control">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <input 
-                                    type="text" 
-                                    v-model="formData.city" 
-                                    placeholder="City" 
-                                    class="form-control" 
-                                    required
-                                >
+                                <input type="text" v-model="formData.city" placeholder="City" class="form-control"
+                                    required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <input 
-                                    type="text" 
-                                    v-model="formData.state" 
-                                    placeholder="State*" 
-                                    class="form-control" 
-                                    required
-                                >
+                                <input type="text" v-model="formData.state" placeholder="State*" class="form-control"
+                                    required>
                             </div>
                         </div>
                     </div>
@@ -149,35 +88,22 @@
                     <div class="check-box">
                         <label class="container-box">
                             SSL Commerz
-                            <input 
-                                type="radio" 
-                                v-model="formData.payment_method" 
-                                value="sslcommerze"
-                            >
+                            <input type="radio" v-model="formData.payment_method" value="sslcommerze">
                             <span class="checkmark"></span>
                         </label>
                     </div>
                     <div class="check-box">
                         <label class="container-box">
                             Offline payment
-                            <input 
-                                type="radio" 
-                                v-model="formData.payment_method" 
-                                value="offline"
-                            >
+                            <input type="radio" v-model="formData.payment_method" value="offline">
                             <span class="checkmark"></span>
                         </label>
                     </div>
                 </div>
             </div>
             <div class="btn-wrapper">
-                <button 
-                    type="submit" 
-                    @click="submitDonation"
-                    class="boxed-btn btn-sanatory"
-                    :disabled="isSubmitting"
-                >
-                    {{ isSubmitting ? 'Processing...' : 'Donation Now' }} 
+                <button type="submit" @click="submitDonation" class="boxed-btn btn-sanatory" :disabled="isSubmitting">
+                    {{ isSubmitting ? 'Processing...' : 'Donation Now' }}
                     <span class="icon-paper-plan"></span>
                 </button>
             </div>
@@ -188,6 +114,30 @@
 import axios from 'axios';
 
 export default {
+    props: {
+        amount: {
+            type: [Array, String],
+            default: () => [25, 50, 100, 200]
+        }
+    },
+    computed: {
+        amountOptions() {
+            if (typeof this.amount === 'string') {
+                try {
+                    console.log('Parsing string amount:', this.amount);
+                    const parsed = JSON.parse(this.amount);
+                    return Array.isArray(parsed) ? parsed : [25, 50, 100, 200];
+                } catch (error) {
+                    console.error('Error parsing amount string:', error);
+                    return [25, 50, 100, 200];
+                }
+            }
+            return Array.isArray(this.amount) ? this.amount : [25, 50, 100, 200];
+        }
+    },
+    created() {
+        console.log('Amount prop received:', this.amount);
+    },
     data() {
         return {
             isSubmitting: false,
@@ -205,52 +155,59 @@ export default {
             }
         }
     },
+    mounted() {
+        console.log('Mounted - amount:', this.amount);
+        console.log('Type of amount:', typeof this.amount);
+    },
     methods: {
+        getAmountText(amt) {
+            return `$${amt}`;
+        },
         setAmount(amount) {
             this.formData.amount = amount;
         },
-        
+
         async submitDonation() {
             if (this.isSubmitting) return;
-            
+
             // Basic validation
             if (!this.formData.amount || this.formData.amount <= 0) {
-                alert('Please enter a valid donation amount');
+                window.s_alert('Please enter a valid donation amount', 'error');
                 return;
             }
-            
+
             if (!this.formData.first_name || !this.formData.last_name || !this.formData.email) {
-                alert('Please fill in all required fields');
+                window.s_alert('Please fill in all required fields', 'error');
                 return;
             }
-            
+
             this.isSubmitting = true;
-            
+
             try {
                 const response = await axios.post('/donations/store', this.formData);
-                
+
                 if (response.status === 200 || response.status === 201) {
-                    alert('Thank you for your donation! Your submission has been received.');
+                    window.s_alert('Thank you for your donation! Your submission has been received.');
                     this.resetForm();
                 } else {
                     throw new Error('Submission failed');
                 }
             } catch (error) {
                 console.error('Donation submission error:', error);
-                
+
                 if (error.response && error.response.status === 422) {
                     // Validation errors
                     const errors = error.response.data.errors || {};
                     const errorMessages = Object.values(errors).flat().join('\n');
-                    alert('Please correct the following errors:\n' + errorMessages);
+                    window.s_alert('Please correct the following errors:\n' + errorMessages, 'error');
                 } else {
-                    alert('There was an error processing your donation. Please try again.');
+                    window.s_alert('There was an error processing your donation. Please try again.', 'error');
                 }
             } finally {
                 this.isSubmitting = false;
             }
         },
-        
+
         resetForm() {
             this.formData = {
                 amount: null,
@@ -287,5 +244,19 @@ export default {
 button:disabled {
     opacity: 0.6;
     cursor: not-allowed;
+}
+</style>
+
+<style>
+.swal2-container {
+    z-index: 9999999 !important;
+}
+
+.swal2-container.swal2-top-end {
+    z-index: 9999999 !important;
+}
+
+.swal2-popup {
+    z-index: 9999999 !important;
 }
 </style>

@@ -40,6 +40,7 @@ Route::get('/contact-us', [FrontendController::class, 'ContactUsPage'])->name('C
 Route::get('/single/election', [FrontendController::class, 'ElectionPage'])->name('single.election');
 Route::get('/single/privacy-policy', [FrontendController::class, 'PrivacyPolicyPage'])->name('single.privacy-policy');
 Route::get('/single/terms-and-conditions', [FrontendController::class, 'TermsAndConditionsPage'])->name('single.terms-and-conditions');
+Route::get('pages/custom/{slug}', [FrontendController::class, 'CustomPage'])->name('single.custom');
 
 
 /*

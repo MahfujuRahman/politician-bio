@@ -45,6 +45,24 @@ export const store = defineStore("footer_store", {
     },
     
     
+    async custom_page() {
+      if (await this._isCacheValid("footer_custom_page")) {
+        this.custom_page = this._cache["footer_custom_page"].data;
+        return;
+      }
+      try {
+        const res = await axios.get("custom-pages", {
+          params: {
+            get_all: 1,
+            limit: 2
+          },
+        });
+        this.custom_page = res.data.data;
+        await this._setCache("footer_custom_page", res.data.data);
+      } catch (e) {
+        this.error = e;
+      }
+    },
     async fetch_events() {
       if (await this._isCacheValid("footer_events")) {
         this.events = this._cache["footer_events"].data;

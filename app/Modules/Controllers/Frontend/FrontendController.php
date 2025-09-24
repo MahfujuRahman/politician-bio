@@ -288,5 +288,18 @@ class FrontendController extends Controller
         ]);
     }
 
-    
+    // Single/Custom Page
+    public function CustomPage(Request $request, $slug)
+    {
+        if (!$slug) {
+            return redirect()->back();
+        }
+
+        return Inertia::render('Single/Custom', [
+            'slug' => $slug,
+            'event' => [
+                'title' => 'Custom Page',
+            ]
+        ]);
+    }
 }

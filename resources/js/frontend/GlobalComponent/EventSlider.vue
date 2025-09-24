@@ -7,9 +7,7 @@
             <h4 class="title style-02 wow animate__animated animate__fadeInUp">
               {{ title }}
             </h4>
-            <p
-              class="description style-02 wow animate__animated animate__fadeInUp"
-            >
+            <p class="description style-02 wow animate__animated animate__fadeInUp">
               {{ description }}
             </p>
           </div>
@@ -17,18 +15,11 @@
       </div>
       <div class="row">
         <div class="testimonial-carousel-six" ref="eventCarousel">
-          <div
-            v-for="(event, idx) in events"
-            :key="idx"
+          <div v-for="(event, idx) in events" :key="idx"
             class="event-single-items wow animate__animated animate__fadeInUp"
-            :class="{ [`animate__delay-${idx}s`]: idx > 0 }"
-          >
-            <div
-              class="event-img"
-              :style="{ backgroundImage: `url(/${event?.banner_image})` }"
-              @click="openImagePopup(event?.banner_image)"
-              style="cursor: pointer"
-            ></div>
+            :class="{ [`animate__delay-${idx}s`]: idx > 0 }">
+            <div class="event-img" :style="{ backgroundImage: `url(/${event?.banner_image})` }"
+              @click="openImagePopup(event?.banner_image)" style="cursor: pointer"></div>
             <div class="content">
               <div class="post-mate">
                 <h2 class="post-date">{{ getDay(event?.date_time) }}</h2>
@@ -49,17 +40,14 @@
                 </div>
               </div>
               <h4 class="title">
-                <Link :href="`/events/event/details?slug=${event.slug}`">{{
+                <Link :href="`/events/event/details?slug=${event.slug}`" @click="handleReadMoreClick">{{
                   event.title
                 }}</Link>
               </h4>
               <p class="description">{{ event?.short_description }}</p>
               <div class="btn-wrapper">
-                <Link
-                  :href="`/events/event/details?slug=${event?.slug}`"
-                  class="boxed-btn event-btn"
-                  ><i class="fas fa-arrow-right"></i>Read More</Link
-                >
+                <Link :href="`/events/event/details?slug=${event?.slug}`" class="boxed-btn event-btn"
+                  @click="handleReadMoreClick"><i class="fas fa-arrow-right"></i>Read More</Link>
               </div>
             </div>
           </div>
@@ -97,6 +85,30 @@ export default {
   },
 
   methods: {
+    handleReadMoreClick() {
+      // Scroll to top immediately
+      this.scrollToTop();
+
+      // Also scroll after a short delay to handle Inertia navigation
+      setTimeout(() => {
+        this.scrollToTop();
+      }, 100);
+    },
+
+    scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+
+      // Fallback for older browsers
+      try {
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+      } catch (e) {
+        console.log('Scroll fallback used');
+      }
+    },
     getDay(dateTime) {
       if (!dateTime) return "";
       const date = new Date(dateTime);

@@ -328,6 +328,7 @@ export default {
     await this.fetchAllEventDetailsPageData();
     console.log("latest_events after fetch:", this.latest_events);
     this.loading = false;
+
   },
   methods: {
     ...mapActions(event_details_store, [

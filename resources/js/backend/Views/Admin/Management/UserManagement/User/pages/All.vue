@@ -219,7 +219,7 @@
                   class="bg-transparent text-white rounded-1"
                 >
                   <option value="5">05</option>
-                  <option value="10">10</option>
+                  <option value="10" selected>10</option>
                   <option value="50">50</option>
                   <option value="100">100</option>
                   <option value="200">200</option>

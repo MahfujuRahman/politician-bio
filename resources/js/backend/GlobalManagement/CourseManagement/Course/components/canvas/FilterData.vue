@@ -61,7 +61,7 @@ export default {
     }),
     mounted() {
         // Set default date range to last month
-        this.setDefaultDateRange();
+        // this.setDefaultDateRange();
     },
     watch: {
 
@@ -95,20 +95,20 @@ export default {
             this.reset_filter_criteria();
             await this.get_all();
         },
-        setDefaultDateRange() {
-            const today = new Date();
-            const oneMonthAgo = new Date();
-            oneMonthAgo.setMonth(today.getMonth() - 1);
+        // setDefaultDateRange() {
+        //     const today = new Date();
+        //     const oneMonthAgo = new Date();
+        //     oneMonthAgo.setMonth(today.getMonth() - 1);
             
-            // Format dates to YYYY-MM-DD for input[type="date"]
-            const formatDate = (date) => {
-                return date.toISOString().split('T')[0];
-            };
+        //     // Format dates to YYYY-MM-DD for input[type="date"]
+        //     const formatDate = (date) => {
+        //         return date.toISOString().split('T')[0];
+        //     };
             
-            // Set start date to one month ago and end date to today
-            this.start_date = formatDate(oneMonthAgo);
-            this.end_date = formatDate(today);
-        },
+        //     // Set start date to one month ago and end date to today
+        //     this.start_date = formatDate(oneMonthAgo);
+        //     this.end_date = formatDate(today);
+        // },
     },
     computed: {
         ...mapWritableState(store, [

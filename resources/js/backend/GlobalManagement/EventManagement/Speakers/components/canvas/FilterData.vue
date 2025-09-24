@@ -61,7 +61,7 @@ export default {
     }),
     mounted() {
         // Set default date range to last month
-        this.setDefaultDateRange();
+        // this.setDefaultDateRange();
     },
     watch: {
 

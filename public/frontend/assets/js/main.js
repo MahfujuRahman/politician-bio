@@ -704,13 +704,13 @@
         }
         lastScrollTop = st;
     }
-    // function submenuReverse() {$(window).scrollTop()
-    //     if ($(window).scrollTop() > 400) {
-    //         $('.nav-style-03 .sub-menu').removeClass('menu-reverse')
-    //     } else {
-    //         $('.nav-style-03 .sub-menu').addClass('menu-reverse')
-    //     }
-    // }
+    function submenuReverse() {
+        if ($(window).scrollTop() > 400) {
+            $('.nav-style-03 .sub-menu').removeClass('menu-reverse')
+        } else {
+            $('.nav-style-03 .sub-menu').addClass('menu-reverse')
+        }
+    }
     /*---------------------------
         Histoy Slider one
     ---------------------------*/

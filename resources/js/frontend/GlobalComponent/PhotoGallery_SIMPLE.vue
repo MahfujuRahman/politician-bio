@@ -49,83 +49,65 @@ export default {
   },
   name: "PhotoGallery",
   mounted() {
-    this.$nextTick(() => {
-      if (this.photos && this.photos.data && this.photos.data.length > 0) {
-        setTimeout(() => this.initializeCarousel(), 1000);
-      }
-    });
+    if (this.photos && this.photos.data && this.photos.data.length > 0) {
+      setTimeout(() => this.initializeCarousel(), 500);
+    }
   },
   updated() {
-    this.$nextTick(() => {
-      if (this.photos && this.photos.data && this.photos.data.length > 0) {
-        this.destroyCarousel();
-        setTimeout(() => this.initializeCarousel(), 500);
-      }
-    });
+    if (this.photos && this.photos.data && this.photos.data.length > 0) {
+      this.destroyCarousel();
+      setTimeout(() => this.initializeCarousel(), 300);
+    }
   },
   beforeDestroy() {
     this.destroyCarousel();
   },
   methods: {
     initializeCarousel() {
-      this.$nextTick(() => {
-        if (typeof $ === "undefined") return;
-        
-        const $carousel = $(".testimonial-carousel-seven");
-        if (!$carousel.length) return;
-        
-        // Destroy existing
-        if ($carousel.hasClass('owl-loaded')) {
-          $carousel.trigger('destroy.owl.carousel').removeClass('owl-loaded owl-drag');
+      if (typeof $ === "undefined") return;
+      
+      const $carousel = $(".testimonial-carousel-seven");
+      if (!$carousel.length) return;
+      
+      // Destroy existing
+      if ($carousel.hasClass('owl-loaded')) {
+        $carousel.trigger('destroy.owl.carousel').removeClass('owl-loaded owl-drag');
+      }
+      
+      // Initialize with loop
+      $carousel.owlCarousel({
+        loop: true,
+        autoplay: true,
+        autoplayTimeout: 4000,
+        margin: 0,
+        nav: true,
+        dots: false,
+        navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
+        items: 4,
+        responsive: {
+          0: { items: 1 },
+          768: { items: 2 },
+          992: { items: 3 },
+          1200: { items: 4 }
         }
-        $carousel.removeData('owl.carousel');
-        
-        setTimeout(() => {
-          // Initialize with loop
-          $carousel.owlCarousel({
-            loop: true,
-            autoplay: true,
-            autoplayTimeout: 4000,
-            margin: 0,
-            nav: true,
-            dots: false,
-            navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
-            items: 4,
-            responsive: {
-              0: { items: 1, margin: 0 },
-              768: { items: 2, margin: 0 },
-              992: { items: 3, margin: 0 },
-              1200: { items: 4, margin: 0 }
-            }
-          });
-          
-          // Simple popup - works with loop
-          setTimeout(() => {
-            $('.testimonial-carousel-seven').magnificPopup({
-              delegate: '.image-popup',
-              type: 'image',
-              gallery: { 
-                enabled: true,
-                tCounter: '<span class="mfp-counter">%curr% of %total%</span>'
-              }
-            });
-          }, 300);
-        }, 100);
       });
+      
+      // Simple popup - works with loop
+      setTimeout(() => {
+        $('.image-popup').magnificPopup({
+          type: 'image',
+          gallery: { enabled: true }
+        });
+      }, 200);
     },
     
     destroyCarousel() {
       if (typeof $ !== "undefined") {
-        try {
-          const $carousel = $(".testimonial-carousel-seven");
-          if ($carousel.hasClass("owl-loaded")) {
-            $carousel.trigger("destroy.owl.carousel").removeClass('owl-loaded owl-drag');
-            $carousel.removeData('owl.carousel');
-          }
-          $('.testimonial-carousel-seven').magnificPopup('destroy');
-        } catch (error) {
-          console.error('Destroy error:', error);
+        const $carousel = $(".testimonial-carousel-seven");
+        if ($carousel.hasClass("owl-loaded")) {
+          $carousel.trigger("destroy.owl.carousel").removeClass('owl-loaded owl-drag');
         }
+        $('.image-popup').magnificPopup('destroy');
       }
     }
   }

@@ -16,8 +16,8 @@
     :heading="newsDetailsBannerSection?.title || 'News Details'"
     :breadcrumbs="[
       { text: 'Home', url: '/' },
-      { text: 'News', url: '/pages/news' },
-      { text: 'News Details', url: '/pages/news/details' },
+      { text: 'News', url: '/news' },
+      { text: 'News Details', url: '/news/details' },
     ]"
     key="news_details"
   />

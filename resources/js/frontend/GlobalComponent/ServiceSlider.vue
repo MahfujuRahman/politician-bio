@@ -9,11 +9,11 @@
             :key="index"
           >
           <!-- {{ service }} -->
-            <img
+            <!-- <img
               src="/frontend/assets/img/flag-shape.png"
               class="shape-01"
               alt=""
-            />
+            /> -->
             <div class="icon">
               <span :class="service.icon"></span>
             </div>

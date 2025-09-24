@@ -17,98 +17,108 @@
     </div>
     <hr />
     <ul class="metismenu" id="menu">
-      <!-- <li class="menu-label">Management</li> -->
-      <!-- <li>
-        <router-link :to="{ name: `adminDashboard` }" class="border" href="javascript:void();">
-          <div class="parent-icon">
-            <i class="zmdi zmdi-view-dashboard"></i>
-          </div>
-          <div class="menu-title">Dashboard</div>
-        </router-link>
-      </li> -->
 
       <side-bar-single-menu :icon="`zmdi zmdi-view-dashboard`" :menu_title="`Dashboard`"
         :route_name="`adminDashboard`" />
 
       <!-- Management start -->
 
-      <side-bar-drop-down-menus :icon="`fa fa-plus`" :menu_title="`BannerManagement`" :menus="[
+      <side-bar-drop-down-menus :icon="`fa fa-plus`" :menu_title="`Pages`" :menus="[
         {
           route_name: `AllBanner`,
           title: `Banner`,
           icon: `zmdi zmdi-dot-circle-alt`,
         },
-      ]" />
-      <side-bar-drop-down-menus :icon="`fa fa-plus`" :menu_title="`WhyChoseUsManagement`" :menus="[
         {
           route_name: `AllWhyChoseUs`,
           title: `WhyChoseUs`,
           icon: `zmdi zmdi-dot-circle-alt`,
         },
-      ]" />
-      <side-bar-drop-down-menus :icon="`fa fa-plus`" :menu_title="`MediaCoverageManagement`" :menus="[
         {
           route_name: `AllMediaCoverage`,
           title: `MediaCoverage`,
           icon: `zmdi zmdi-dot-circle-alt`,
-        },
-      ]" />
-      <side-bar-drop-down-menus :icon="`fa fa-plus`" :menu_title="`ContributeManagement`" :menus="[
-        {
+        }, {
           route_name: `AllContribute`,
           title: `Contribute`,
           icon: `zmdi zmdi-dot-circle-alt`,
         },
-      ]" />
-      <side-bar-drop-down-menus :icon="`fa fa-plus`" :menu_title="`PublicCommentManagement`" :menus="[
         {
           route_name: `AllPublicComment`,
           title: `PublicComment`,
           icon: `zmdi zmdi-dot-circle-alt`,
         },
-      ]" />
-      <side-bar-drop-down-menus :icon="`fa fa-plus`" :menu_title="`MissionVisionManagement`" :menus="[
         {
           route_name: `AllMissionVision`,
           title: `MissionVision`,
           icon: `zmdi zmdi-dot-circle-alt`,
         },
-      ]" />
-      <side-bar-drop-down-menus :icon="`fa fa-plus`" :menu_title="`DonationDetailsManagement`" :menus="[
         {
           route_name: `AllDonationDetails`,
           title: `DonationDetails`,
           icon: `zmdi zmdi-dot-circle-alt`,
         },
-      ]" />
-      <side-bar-drop-down-menus :icon="`fa fa-plus`" :menu_title="`OurJourneyManagement`" :menus="[
         {
           route_name: `AllOurJourney`,
           title: `OurJourney`,
           icon: `zmdi zmdi-dot-circle-alt`,
         },
-      ]" />
-      <side-bar-drop-down-menus :icon="`fa fa-plus`" :menu_title="`HistoryTimelineManagement`" :menus="[
         {
           route_name: `AllHistoryTimeline`,
           title: `HistoryTimeline`,
           icon: `zmdi zmdi-dot-circle-alt`,
         },
-      ]" />
-      <side-bar-drop-down-menus :icon="`fa fa-plus`" :menu_title="`OurPrinciplesManagement`" :menus="[
         {
           route_name: `AllOurPrinciples`,
           title: `OurPrinciples`,
           icon: `zmdi zmdi-dot-circle-alt`,
         },
-      ]" />
-      <side-bar-drop-down-menus :icon="`fa fa-plus`" :menu_title="`OurSpeechesManagement`" :menus="[
         {
           route_name: `AllOurSpeeches`,
           title: `OurSpeeches`,
           icon: `zmdi zmdi-dot-circle-alt`,
         },
+        {
+          route_name: `AllIssues`,
+          title: `Issues`,
+          icon: `zmdi zmdi-dot-circle-alt`,
+        },
+        {
+          route_name: `AllGetInvolved`,
+          title: `GetInvolved`,
+          icon: `zmdi zmdi-dot-circle-alt`,
+        },
+        {
+          route_name: `AllServices`,
+          title: `Services`,
+          icon: `zmdi zmdi-dot-circle-alt`,
+        },
+        {
+          route_name: `AllProjectPlaning`,
+          title: `ProjectPlaning`,
+          icon: `zmdi zmdi-dot-circle-alt`,
+        },
+        {
+          route_name: `AllFaq`,
+          title: `Faq`,
+          icon: `zmdi zmdi-dot-circle-alt`,
+        },   {
+          route_name: `AllAboutUs`,
+          title: `AboutUs`,
+          icon: `zmdi zmdi-dot-circle-alt`,
+        },
+         {
+          route_name: `AllCounter`,
+          title: `Counter`,
+          icon: `zmdi zmdi-dot-circle-alt`,
+        },
+         {
+          route_name: `AllDonation`,
+          title: `Donation`,
+          icon: `zmdi zmdi-dot-circle-alt`,
+        },
       ]" />
+
       <side-bar-drop-down-menus :icon="`fa fa-plus`" :menu_title="`VolunteerManagement`" :menus="[
         {
           route_name: `AllVolunteer`,
@@ -142,41 +152,7 @@
           icon: `zmdi zmdi-dot-circle-alt`,
         },
       ]" />
-      <side-bar-drop-down-menus :icon="`fa fa-plus`" :menu_title="`IssuesManagement`" :menus="[
-        {
-          route_name: `AllIssues`,
-          title: `Issues`,
-          icon: `zmdi zmdi-dot-circle-alt`,
-        },
-      ]" />
-      <side-bar-drop-down-menus :icon="`fa fa-plus`" :menu_title="`GetInvolvedManagement`" :menus="[
-        {
-          route_name: `AllGetInvolved`,
-          title: `GetInvolved`,
-          icon: `zmdi zmdi-dot-circle-alt`,
-        },
-      ]" />
-      <side-bar-drop-down-menus :icon="`fa fa-plus`" :menu_title="`ServicesManagement`" :menus="[
-        {
-          route_name: `AllServices`,
-          title: `Services`,
-          icon: `zmdi zmdi-dot-circle-alt`,
-        },
-      ]" />
-      <side-bar-drop-down-menus :icon="`fa fa-plus`" :menu_title="`ProjectPlaningManagement`" :menus="[
-        {
-          route_name: `AllProjectPlaning`,
-          title: `ProjectPlaning`,
-          icon: `zmdi zmdi-dot-circle-alt`,
-        },
-      ]" />
-      <side-bar-drop-down-menus :icon="`fa fa-plus`" :menu_title="`FaqManagement`" :menus="[
-        {
-          route_name: `AllFaq`,
-          title: `Faq`,
-          icon: `zmdi zmdi-dot-circle-alt`,
-        },
-      ]" />
+
       <side-bar-drop-down-menus :icon="`fa fa-plus`" :menu_title="`EventManagement`" :menus="[
         {
           route_name: `AllSpeakers`,
@@ -223,20 +199,7 @@
           icon: `zmdi zmdi-dot-circle-alt`,
         },
       ]" />
-      <side-bar-drop-down-menus :icon="`fa fa-plus`" :menu_title="`AboutUsManagement`" :menus="[
-        {
-          route_name: `AllAboutUs`,
-          title: `AboutUs`,
-          icon: `zmdi zmdi-dot-circle-alt`,
-        },
-      ]" />
-      <side-bar-drop-down-menus :icon="`fa fa-plus`" :menu_title="`CounterManagement`" :menus="[
-        {
-          route_name: `AllCounter`,
-          title: `Counter`,
-          icon: `zmdi zmdi-dot-circle-alt`,
-        },
-      ]" />
+     
       <side-bar-drop-down-menus :icon="`fa fa-plus`" :menu_title="`PollManagement`" :menus="[
         {
           route_name: `AllPoll`,
@@ -341,7 +304,6 @@
           icon: `zmdi zmdi-dot-circle-alt`,
         },
       ]" />
-      <side-bar-single-menu :icon="`fa fa-plus`" :menu_title="`Donation`" :route_name="`AllDonation`" />
       <!-- Management end -->
     </ul>
   </div>

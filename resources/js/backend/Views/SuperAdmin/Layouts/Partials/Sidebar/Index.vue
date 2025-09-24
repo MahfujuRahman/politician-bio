@@ -304,7 +304,8 @@
           icon: `zmdi zmdi-dot-circle-alt`,
         },
       ]" />
-      <!-- Management end -->
+      <side-bar-single-menu :icon="`fa fa-plus`" :menu_title="`CustomPage`"  :route_name="`AllCustomPage`" />
+<!-- Management end -->
     </ul>
   </div>
 </template>

@@ -20,71 +20,22 @@
         <div class="col-lg-8">
           <div class="accordion-wrapper">
             <div id="accordion">
-              <div class="card wow animate__animated animate__fadeInUp">
-                <div class="card-header" id="headingOwo">
+             
+              <div v-for="(item, index) in mission_vision" :key="index"
+                :class="`card wow animate__animated animate__fadeInUp animate__delay-${index}s`">
+                <div class="card-header" :id="'heading' + index">
                   <h5 class="mb-0">
-                    <a
-                      class="collapsed"
-                      role="button"
-                      data-toggle="collapse"
-                      data-target="#collapseOwo"
-                      aria-expanded="false"
-                      aria-controls="collapseOwo"
-                    >
-                      Our Vision?
+                    <a class="collapsed" role="button" data-toggle="collapse" :data-target="'#collapse' + index"
+                      aria-expanded="false" :aria-controls="'collapse' + index">
+                      {{ item.title }}
                     </a>
                   </h5>
                 </div>
-                <div id="collapseOwo" class="collapse" data-parent="#accordion">
-                  <div class="card-body" v-html="mission_vision?.vision?.description"></div>
+                <div :id="'collapse' + index" class="collapse" data-parent="#accordion">
+                  <div class="card-body" v-html="item?.description"></div>
                 </div>
               </div>
-              <div
-                class="card wow animate__animated animate__fadeInUp animate__delay-1s"
-              >
-                <div class="card-header" id="headingTwo">
-                  <h5 class="mb-0">
-                    <a
-                      class="collapsed"
-                      role="button"
-                      data-toggle="collapse"
-                      data-target="#collapseTwo"
-                      aria-expanded="false"
-                      aria-controls="collapseOwo"
-                    >
-                      Our Mission?
-                    </a>
-                  </h5>
-                </div>
-                <div id="collapseTwo" class="collapse" data-parent="#accordion">
-                  <div class="card-body" v-html="mission_vision?.mission?.description"></div>
-                </div>
-              </div>
-              <div
-                class="card wow animate__animated animate__fadeInUp animate__delay-2s"
-              >
-                <div class="card-header" id="headingThree">
-                  <h5 class="mb-0">
-                    <a
-                      class="collapsed"
-                      role="button"
-                      data-toggle="collapse"
-                      data-target="#collapseThree"
-                      aria-expanded="false"
-                      aria-controls="collapseOwo"
-                    >
-                      Our Future Plan?
-                    </a>
-                  </h5>
-                </div>
-                <div
-                  id="collapseThree"
-                  class="collapse"
-                  data-parent="#accordion"
-                >
-                  <div class="card-body" v-html="mission_vision?.future_plan?.description"></div>
-                </div>
-              </div>
+
             </div>
           </div>
         </div>

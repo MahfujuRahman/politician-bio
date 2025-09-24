@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('mission_visions', function (Blueprint $table) {
             $table->id();
-            $table->enum('page_type', ['future_plan','mission','vision','none'])->nullable();
+            $table->string('title', 255)->nullable();
             $table->longtext('description')->nullable();
 
             $table->bigInteger('creator')->unsigned()->nullable();

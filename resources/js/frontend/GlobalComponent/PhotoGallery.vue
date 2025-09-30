@@ -99,15 +99,32 @@ export default {
             }
           });
           
-          // Simple popup - works with loop
+          // Custom click handler for original images only
           setTimeout(() => {
-            $('.testimonial-carousel-seven').magnificPopup({
-              delegate: '.image-popup',
-              type: 'image',
-              gallery: { 
-                enabled: true,
-                tCounter: '<span class="mfp-counter">%curr% of %total%</span>'
-              }
+            const photosData = this.photos && this.photos.data ? this.photos.data : [];
+            const originalImages = photosData.map(image => ({
+              src: '/' + image.image,
+              type: 'image'
+            }));
+            
+            // Remove any existing popup
+            $('.testimonial-carousel-seven').off('click.magnificPopup');
+            
+            // Manual click handler that opens only original 6 images
+            $('.testimonial-carousel-seven').on('click.magnificPopup', '.image-popup', function(e) {
+              e.preventDefault();
+              
+              const clickedSrc = $(this).attr('href');
+              const startIndex = originalImages.findIndex(img => img.src === clickedSrc);
+              
+              $.magnificPopup.open({
+                items: originalImages,
+                gallery: {
+                  enabled: true,
+                  tCounter: '<span class="mfp-counter">%curr% of %total%</span>'
+                },
+                type: 'image'
+              }, startIndex >= 0 ? startIndex : 0);
             });
           }, 300);
         }, 100);
